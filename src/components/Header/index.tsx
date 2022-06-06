@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import { MdAdd, MdLogout, MdShoppingBasket } from "react-icons/md";
+import { MdAdd, MdLogout } from "react-icons/md";
 import {RiArrowDropDownLine} from 'react-icons/ri'
 
 import Avatar from "../../img/avatar.png";
@@ -9,6 +9,8 @@ import Logo from "../../img/logo.png";
 import { app } from "../../firebase.config";
 import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
+import Navigations from "./Navigations";
+import MobileNav from "./mobile-nav";
 
 const Header = () => {
   const firebaseAuth = getAuth(app);
@@ -42,7 +44,7 @@ const Header = () => {
   };
 
   return (
-    <header className="w-screen fixed z-50  p-6 px-16">
+    <header className="w-screen fixed z-50   md:p-6 md:px-16">
       {/* Tablet and Desktop */}
       <div className="hidden md:flex w-full justify-between itesm-center">
         <Link to={"/"}>
@@ -56,35 +58,7 @@ const Header = () => {
         </Link>
 
         {/* navigation */}
-        <div className="flex items-center gap-8">
-          <ul className="flex items-center gap-8">
-            <li className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out">
-              Home
-            </li>
-            <li className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out">
-              Menu
-            </li>
-            <li className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out">
-              Services
-            </li>
-            <li className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out">
-              About Us
-            </li>
-            <li className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out">
-              Contact Us
-            </li>
-          </ul>
-
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="relative flex items-center justify-center text-textColor"
-          >
-            <MdShoppingBasket className="text-2xl cursor-pointer" />
-            <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-              <p className="text-sm text-white font-semibold">0</p>
-            </div>
-          </motion.div>
-        </div>
+        <Navigations />
 
         {/* User */}
 
@@ -143,7 +117,70 @@ const Header = () => {
       </div>
 
       {/* Mobile */}
-      <div className="flex md:hidden w-full bg-blue-400 p-5"></div>
+      <div className="flex md:hidden w-full p-5 items-center justify-between">
+      <Link to={"/"}>
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <img src={Logo} alt="Logo" className="w-8 object-cover" />
+            <p className="text-headingColor text-xl font-bold">Bentilzone</p>
+          </motion.div>
+        </Link>
+
+        
+        {user ? (
+          <div
+            className={`group flex items-center gap-3 border px-3 py-1 rounded-lg relative`}
+          >
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              className=" flex items-center justify-center"
+            >
+              <img
+                src={user?.photoURL? user.photoURL : Avatar}
+                className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
+                alt="user-profile"
+              />
+
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate = {{opacity: 1, scale: 1}}
+              exit = {{opacity: 0, scale: 0.6}}
+              className=" group-hover:flex w-54  bg-gray-50 rounded-lg shadow-xl  flex-col absolute right-0 top-16"
+            >
+              <p className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor">
+                New Item
+                <MdAdd />
+              </p>
+              <MobileNav />
+              <p
+                className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor"
+                onClick={logout}
+              >
+                Logout
+                <MdLogout />
+              </p>
+            </motion.div>
+          </div>
+        ) : (
+          <motion.div
+            className={` flex items-center gap-3 border border-orange-500 px-3 py-1 rounded-lg`}
+            whileTap={{ scale: 0.6 }}
+            onClick={login}
+          >
+            <img
+              src={Avatar}
+              className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
+              alt="user-profile"
+            />
+            <p className="text-headingColor cursor-pointer">
+              {"Login"}
+            </p>
+          </motion.div>
+        )}
+      </div>
     </header>
   );
 };
