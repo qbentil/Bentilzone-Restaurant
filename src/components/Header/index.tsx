@@ -1,35 +1,24 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { Avatar, Logo } from "../Assets";
+import { Link, useNavigate } from "react-router-dom";
+
+import DropDown from "./DropDown";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import LoginAction from "./LoginAction";
 import MobileNav from "./mobile-nav";
 import Navigations from "./Navigations";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { app } from "../../firebase.config";
+import { getAuth } from "firebase/auth";
 import { motion } from "framer-motion";
-import { useStateValue } from "../../context/StateProvider";
 import { useState } from "react";
-import DropDown from "./DropDown";
-import LoginAction from "./LoginAction";
-import { Logo, Avatar } from "../Assets";
+import { useStateValue } from "../../context/StateProvider";
 
 const Header = () => {
+  const navigate = useNavigate()
   const firebaseAuth = getAuth(app);
-  const provider = new GoogleAuthProvider();
   const [{ user }, dispatch] = useStateValue();
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
-  const login = async () => {
-    if (!user) {
-      const {
-        user: { refreshToken, providerData },
-      } = await signInWithPopup(firebaseAuth, provider);
-      dispatch({
-        type: "SET_USER",
-        user: providerData[0],
-      });
-      localStorage.setItem("user", JSON.stringify(providerData[0]));
-    }
-  };
+  const [isOpenMobileNav, setIsOpenMobileNav] = useState(false)
 
   const logout = async () => {
     if (user) {
@@ -39,6 +28,7 @@ const Header = () => {
         user: null,
       });
       localStorage.setItem("user", "undefined");
+      navigate("/login");
     } else {
       console.log("You are not logged in");
     }
@@ -50,7 +40,7 @@ const Header = () => {
       <div className="hidden md:flex w-full justify-between itesm-center">
         <Link to={"/"}>
           <motion.div
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1 }}
             className="flex items-center gap-2 cursor-pointer"
           >
             <img src={Logo} alt="Logo" className="md:w-6 lg:w-8 object-cover" />
@@ -66,7 +56,7 @@ const Header = () => {
         {user ? (
           <div className={`group flex items-center gap-3 px-3 py-1 rounded-lg`}>
             <motion.div
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.1 }}
               className=" flex items-center justify-center"
             >
               <img
@@ -81,7 +71,7 @@ const Header = () => {
             <DropDown user={user} action={logout} />
           </div>
         ) : (
-          <LoginAction action={login} text={"Login"} />
+          <LoginAction text={"Login"} />
         )}
       </div>
 
@@ -105,7 +95,7 @@ const Header = () => {
             </motion.div>
             <Link to={"/"}>
               <motion.div
-                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.1 }}
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <img src={Logo} alt="Logo" className="w-8 object-cover" />
@@ -119,7 +109,7 @@ const Header = () => {
                 className={`flex items-center gap-3 border px-3 py-1 rounded-lg relative`}
               >
                 <motion.div
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.1 }}
                   className="group flex items-center justify-center"
                 >
                   <img
@@ -132,7 +122,7 @@ const Header = () => {
                 </motion.div>
               </div>
             ) : (
-              <LoginAction action={login} mobile />
+              <LoginAction mobile />
             )}
           </div>
         )}

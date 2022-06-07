@@ -1,8 +1,11 @@
 // import React from 'react'
-import { MdShoppingBasket, MdOutlineRestaurantMenu } from "react-icons/md";
-import { motion } from "framer-motion";
-import { Logo } from "../Assets";
+
+import { MdOutlineRestaurantMenu, MdShoppingBasket } from "react-icons/md";
+
 import { Link } from "react-router-dom";
+import { Logo } from "../Assets";
+import { motion } from "framer-motion";
+
 const MobileNav = ({
   isOpen,
   setIsOpen,
@@ -15,6 +18,7 @@ const MobileNav = ({
       <motion.div className="flex items-center justify-between w-screen h-24 bg-slate-100 px-10">
         <motion.div
           whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
           initial={{ opacity: 0, x: 200 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 200 }}
@@ -56,6 +60,7 @@ const MobileNav = ({
       <Link to={'/'} onClick = {() => setIsOpen(!isOpen)} className="flex items-center  justify-center w-full">
         <motion.div
           whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
           className="flex items-center gap-2 cursor-pointer"
           
         >
