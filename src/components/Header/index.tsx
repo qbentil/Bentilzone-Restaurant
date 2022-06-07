@@ -1,24 +1,25 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import { MdAdd, MdLogout } from "react-icons/md";
-import {RiArrowDropDownLine} from 'react-icons/ri'
-
+import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import Avatar from "../../img/avatar.png";
 import { Link } from "react-router-dom";
-import Logo from "../../img/logo.png";
-// import React, { useState } from "react";
+import MobileNav from "./mobile-nav";
+import Navigations from "./Navigations";
+import { RiArrowDropDownLine } from "react-icons/ri";
 import { app } from "../../firebase.config";
 import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
-import Navigations from "./Navigations";
-import MobileNav from "./mobile-nav";
+import { useState } from "react";
+import DropDown from "./DropDown";
+import LoginAction from "./LoginAction";
+import { Logo } from "../Assets";
 
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const [{ user }, dispatch] = useStateValue();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
   const login = async () => {
-    console.log("loginnnnn fired");
-    // return
     if (!user) {
       const {
         user: { refreshToken, providerData },
@@ -30,6 +31,7 @@ const Header = () => {
       localStorage.setItem("user", JSON.stringify(providerData[0]));
     }
   };
+
   const logout = async () => {
     if (user) {
       await firebaseAuth.signOut();
@@ -43,7 +45,9 @@ const Header = () => {
     }
   };
 
-  return (
+  return isOpenMobileNav ? (
+    <MobileNav isOpen={isOpenMobileNav} setIsOpen={setIsOpenMobileNav} />
+  ) : (
     <header className="w-screen fixed z-50   md:p-6 md:px-16">
       {/* Tablet and Desktop */}
       <div className="hidden md:flex w-full justify-between itesm-center">
@@ -63,62 +67,42 @@ const Header = () => {
         {/* User */}
 
         {user ? (
-          <div
-            className={`group flex items-center gap-3 border px-3 py-1 rounded-lg`}
-          >
+          <div className={`group flex items-center gap-3 px-3 py-1 rounded-lg`}>
             <motion.div
               whileTap={{ scale: 0.9 }}
               className=" flex items-center justify-center"
             >
               <img
-                src={user?.photoURL? user.photoURL : Avatar}
+                src={user.photoURL || Avatar}
                 className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
-                alt="user-profile"
+                alt="profile"
               />
               <p className="text-headingColor cursor-pointer flex items-center justify-center gap-2">
-                {user?.displayName} <RiArrowDropDownLine />
+                <RiArrowDropDownLine />
               </p>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate = {{opacity: 1, scale: 1}}
-              exit = {{opacity: 0, scale: 0.6}}
-              className="hidden group-hover:flex w-54  bg-gray-50 rounded-lg shadow-xl  flex-col absolute right-16 top-[4.5rem]"
-            >
-              <p className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor">
-                New Item
-                <MdAdd />
-              </p>
-              <p
-                className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor"
-                onClick={logout}
-              >
-                Logout
-                <MdLogout />
-              </p>
-            </motion.div>
+            <DropDown user={user} action={logout} />
           </div>
         ) : (
-          <motion.div
-            className={` flex items-center gap-3 border border-orange-500 px-3 py-1 rounded-lg`}
-            whileTap={{ scale: 0.6 }}
-            onClick={login}
-          >
-            <img
-              src={Avatar}
-              className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
-              alt="user-profile"
-            />
-            <p className="text-headingColor cursor-pointer">
-              {"Login / SignUp"}
-            </p>
-          </motion.div>
+          <LoginAction action={login} text={'Login'} />
         )}
       </div>
 
       {/* Mobile */}
-      <div className="flex md:hidden w-full p-5 items-center justify-between">
-      <Link to={"/"}>
+      <motion.div
+        className="flex md:hidden w-full p-5 items-center justify-between"
+        initial={{ opacity: 0, x: 200 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 200 }}
+      >
+        <motion.div
+          whileTap={{ scale: 0.9 }}
+          className=" flex items-center justify-center"
+          onClick={() => setIsOpenMobileNav(!isOpenMobileNav)}
+        >
+          <HiOutlineMenuAlt2 className="text-headingColor text-4xl" />
+        </motion.div>
+        <Link to={"/"}>
           <motion.div
             whileTap={{ scale: 0.9 }}
             className="flex items-center gap-2 cursor-pointer"
@@ -128,59 +112,27 @@ const Header = () => {
           </motion.div>
         </Link>
 
-        
         {user ? (
           <div
-            className={`group flex items-center gap-3 border px-3 py-1 rounded-lg relative`}
+            className={`flex items-center gap-3 border px-3 py-1 rounded-lg relative`}
           >
             <motion.div
               whileTap={{ scale: 0.9 }}
-              className=" flex items-center justify-center"
+              className="group flex items-center justify-center"
             >
               <img
-                src={user?.photoURL? user.photoURL : Avatar}
+                src={user?.photoURL ? user.photoURL : Avatar}
                 className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
                 alt="user-profile"
+                onClick={() => setIsOpen(!isOpen)}
               />
-
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate = {{opacity: 1, scale: 1}}
-              exit = {{opacity: 0, scale: 0.6}}
-              className=" group-hover:flex w-54  bg-gray-50 rounded-lg shadow-xl  flex-col absolute right-0 top-16"
-            >
-              <p className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor">
-                New Item
-                <MdAdd />
-              </p>
-              <MobileNav />
-              <p
-                className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor"
-                onClick={logout}
-              >
-                Logout
-                <MdLogout />
-              </p>
+              {isOpen && <DropDown user={user} action={logout} />}
             </motion.div>
           </div>
         ) : (
-          <motion.div
-            className={` flex items-center gap-3 border border-orange-500 px-3 py-1 rounded-lg`}
-            whileTap={{ scale: 0.6 }}
-            onClick={login}
-          >
-            <img
-              src={Avatar}
-              className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
-              alt="user-profile"
-            />
-            <p className="text-headingColor cursor-pointer">
-              {"Login"}
-            </p>
-          </motion.div>
+          <LoginAction action={login} mobile />
         )}
-      </div>
+      </motion.div>
     </header>
   );
 };
