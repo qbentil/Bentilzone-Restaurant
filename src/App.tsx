@@ -1,11 +1,14 @@
 import "./App.css";
+
 import { Header, Home, Login, Signup } from "./components";
 import { Route, Routes } from "react-router-dom";
+
 import {AnimatePresence} from "framer-motion";
+
 function App() {
   return (
     <AnimatePresence exitBeforeEnter>
-      <div className="w-screen h-auto flex flex-col bg-primary">
+      <div className="w-screen h-auto min-h-[100vh] flex flex-col">
         <Header />
         <main className="mt-14 p-8 w-full h-auto">
           {/* Routes */}
