@@ -8,6 +8,7 @@ module.exports = {
         cartNumBg: "#e80013",
         textColor: "#515151",
       },
+      display: ["group-hover"]
     },
     plugins: [],
   },
