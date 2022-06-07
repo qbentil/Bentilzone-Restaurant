@@ -1,26 +1,25 @@
-import {
-  GithubAuthProvider,
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Link, useNavigate } from "react-router-dom";
+import ProviderAuth, { ImageBox } from ".";
+import { ToastContainer, toast } from "react-toastify";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+
 import { Logo } from "../Assets";
 import { app } from "../../firebase.config";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 // toast.configure()
 
 const Login = () => {
   const navigate = useNavigate();
   const firebaseAuth = getAuth(app);
-  const GOOGLE_PROVIDER = new GoogleAuthProvider();
-  const GITHUB_PROVIDER = new GithubAuthProvider();
   const [{ user }, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +35,6 @@ const Login = () => {
         });
         localStorage.setItem("user", JSON.stringify(providerData[0]));
         navigate("/");
-
       } catch (error) {
         toast.error(
           "Unnable to connect to provider.Check your internet and try again.",
@@ -79,36 +77,11 @@ const Login = () => {
     <section className="w-full h-auto">
       <ToastContainer />
       <div className="container md:py-10 h-full">
-        <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-          <div className="hidden md:block md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-            <img src={Logo} className="w-96 h-96" alt="Phone" />
-          </div>
+        <div className="flex justify-center items-center flex-wrap h-full g-3 text-gray-800">
+          <ImageBox />
           <div className="w-full md:w-[30rem]">
             <form className="p-2">
-              <div className="flex items-center justify-center gap-5  text-center">
-                <p
-                  className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer hover:shadow-sm"
-                  onClick={() => AUTH({ provider: GITHUB_PROVIDER })}
-                >
-                  <img
-                    alt="github"
-                    className="w-5 mr-1"
-                    src="https://demos.creative-tim.com/notus-js/assets/img/github.svg "
-                  />
-                  <span>Github</span>
-                </p>
-                <p
-                  className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer hover:shadow-sm"
-                  onClick={() => AUTH({ provider: GOOGLE_PROVIDER })}
-                >
-                  <img
-                    alt="google"
-                    className="w-5 mr-1"
-                    src="https://demos.creative-tim.com/notus-js/assets/img/google.svg"
-                  />
-                  <span>Google</span>
-                </p>
-              </div>
+              <ProviderAuth />
               <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                 <p className="text-center text-textColor text-sm font-semibold mx-4 mb-0">
                   OR
@@ -141,27 +114,26 @@ const Login = () => {
                 </Link>
               </div>
 
-              <p
-                className="flex items-center justify-center px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                data-mdb-ripple="true"
-                data-mdb-ripple-color="light"
+              <motion.p
+                className="cursor-pointer flex items-center justify-center px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 onClick={EmailAuth}
+                whileHover={{ scale: 1.1 }}
               >
                 Sign in
-              </p>
+              </motion.p>
 
               <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                 <p className="text-center text-sm text-textColor font-semibold mx-4 mb-0">
                   Don't have an account?
                 </p>
               </div>
-              <Link
-                to={"/register"}
-                className="flex items-center justify-center px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                data-mdb-ripple="true"
-                data-mdb-ripple-color="light"
-              >
-                Sign Up
+              <Link to={"/register"}>
+                <motion.p
+                  whileHover={{ scale: 0.99 }}
+                  className="cursor-pointer flex items-center justify-center px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                >
+                  Sign Up
+                </motion.p>
               </Link>
             </form>
           </div>
