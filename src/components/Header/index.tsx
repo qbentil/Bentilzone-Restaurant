@@ -1,8 +1,8 @@
 import { Avatar, Logo } from "../Assets";
+import { Link, useNavigate } from "react-router-dom";
 
 import DropDown from "./DropDown";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
-import { Link,  useNavigate } from "react-router-dom";
 import LoginAction from "./LoginAction";
 import MobileNav from "./mobile-nav";
 import Navigations from "./Navigations";
@@ -40,7 +40,7 @@ const Header = () => {
       <div className="hidden md:flex w-full justify-between itesm-center">
         <Link to={"/"}>
           <motion.div
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1 }}
             className="flex items-center gap-2 cursor-pointer"
           >
             <img src={Logo} alt="Logo" className="md:w-6 lg:w-8 object-cover" />
@@ -56,7 +56,7 @@ const Header = () => {
         {user ? (
           <div className={`group flex items-center gap-3 px-3 py-1 rounded-lg`}>
             <motion.div
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.1 }}
               className=" flex items-center justify-center"
             >
               <img
@@ -95,7 +95,7 @@ const Header = () => {
             </motion.div>
             <Link to={"/"}>
               <motion.div
-                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.1 }}
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <img src={Logo} alt="Logo" className="w-8 object-cover" />
@@ -109,7 +109,7 @@ const Header = () => {
                 className={`flex items-center gap-3 border px-3 py-1 rounded-lg relative`}
               >
                 <motion.div
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.1 }}
                   className="group flex items-center justify-center"
                 >
                   <img
