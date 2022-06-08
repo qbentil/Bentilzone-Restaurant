@@ -4,15 +4,15 @@ import {  toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../firebase.config';
 
-const Upload = ({action, promise, errorHandler}:{action:any, promise:any, errorHandler:any}) => {
+const Upload = ({action, promise, errorHandler, progressHandler}:{action:any, promise:any, errorHandler:any, progressHandler:any}) => {
     const uploadImage = (e:any) => {
       promise(true);
+      toast.info(`Upload started.....`, {icon : <MdCloudUpload className='text-blue-600' />})
       const imageFile = e.target.files[0];
       const storageRef = ref(storage, `Images/Products/${Date.now()}-${imageFile.name}`)
       const uploadPhoto = uploadBytesResumable(storageRef, imageFile)
       uploadPhoto.on("state_changed", (snapshot) => {
-        const uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes)* 100)
-        toast.info(`Upload Status: ${uploadProgress} %`, {icon : <MdCloudUpload className='text-blue-600' />, autoClose: 500, toastId: 1234})
+        progressHandler(Math.round((snapshot.bytesTransferred / snapshot.totalBytes)* 100))
       }, (error) => {
         console.log(error);
         toast.error("Error while uploading, Try again🤗")
