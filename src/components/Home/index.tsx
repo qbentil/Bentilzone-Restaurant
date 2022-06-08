@@ -1,8 +1,12 @@
-import React from 'react'
+import { ShowcaseBanner } from ".."
+
+
 
 const Home = () => {
   return (
-    <div className=''>home</div>
+    <div className='flex w-full h-auto flex-col items-center justify-center'>
+      <ShowcaseBanner />
+    </div>
 
   )
 }
