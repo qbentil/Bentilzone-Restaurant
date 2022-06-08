@@ -1,20 +1,20 @@
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-import { AssetUploader, LoaderAlt } from "../../components";
+import { AssetUploader, Loader, LoaderAlt } from "../../components";
 import { MdAttachMoney, MdDelete, MdFastfood, MdFoodBank } from "react-icons/md";
 
 import { BiCategory } from "react-icons/bi";
 import { Categories } from "../../utils/categories";
 import CategoriesSelector from "./CategoriesSelector";
 import { useState } from "react";
-
+import { motion } from "framer-motion";
 // import {Logo} from "../../"
 const Dashboard = () => {
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [price, setPrice] = useState("");
-  // const [description, setDescription] = useState("");
+  const [uploadeProgess, setUploadProgress] = useState(0);
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState("Select category");
   const [loading, setLoading] = useState(false);
@@ -57,7 +57,7 @@ const Dashboard = () => {
         </div>
         <div className="group flex justify-center items-center flex-col border-2 border-dotted border-gray-300 w-full h-[225px]  md:h-[420px] round-lg">
           {loading ? (
-            <LoaderAlt />
+            <Loader progress = {uploadeProgess} />
           ) : (
             <>
               {image ? (
@@ -69,6 +69,7 @@ const Dashboard = () => {
                       className="w-full h-full object-cover"
                     />
                     <button
+                    title="Remove Photo"
                       className="absolute bottom-3 right-3 rounded-full p-2 md:p-5 bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out"
                       onClick={() => deleteImage()}
                     >
@@ -77,7 +78,7 @@ const Dashboard = () => {
                   </div>
                 </>
               ) : (
-                <AssetUploader action = {setImage} promise = {setLoading} errorHandler = {setHasError} />
+                <AssetUploader action = {setImage} progressHandler = {setUploadProgress} promise = {setLoading} errorHandler = {setHasError} />
               )}
             </>
           )}
@@ -110,9 +111,9 @@ const Dashboard = () => {
         </div>
 
         <div className="w-full flex items-center justify-center">
-          <button className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none rounded bg-orange-500 px-12 py-2 text-lg text-white" onClick={() => saveItem()}>
+          <motion.button whileHover={{scale:1.1}} className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none rounded bg-orange-500 px-12 py-2 text-lg text-white" onClick={() => saveItem()}>
             Save
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>
