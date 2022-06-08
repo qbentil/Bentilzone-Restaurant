@@ -1,6 +1,7 @@
 import "./App.css";
 
-import { Header, Home, Login, Signup } from "./components";
+import { Header } from "./components";
+import {  Admin, Home, Login, Signup } from "./Pages";
 import { Route, Routes } from "react-router-dom";
 
 import {AnimatePresence} from "framer-motion";
@@ -16,6 +17,7 @@ function App() {
             <Route path="/*" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
       </div>
