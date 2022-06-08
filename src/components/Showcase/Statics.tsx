@@ -12,7 +12,7 @@ const StaticsImages: React.FC<Props> = ({ data }) => {
       {data.map((item) => (
         <div
           key={item.id}
-          className="cursor-pointer min-h-[140px] lg:min-h-[220px] min-w-[160px] lg:min-w-[200px] drop-shadow-lg p-2 bg-cardOverlay backdrop-blur-md rounded-xl flex flex-col items-center justify-center"
+          className="cursor-pointer min-h-[140px] lg:min-h-[220px] min-w-[150px] lg:min-w-[200px] drop-shadow-lg p-2 bg-cardOverlay backdrop-blur-md rounded-xl flex flex-col items-center justify-center"
         >
           <motion.img
             whileHover={{ scale: 1.1 }}
