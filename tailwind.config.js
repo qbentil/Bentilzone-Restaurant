@@ -7,6 +7,8 @@ module.exports = {
         headingColor: "#2e2e2e",
         cartNumBg: "#e80013",
         textColor: "#515151",
+        cardOverlay: "rgba(256, 256, 256, 0.4)",
+        lightGray: "#9ca0ab",
       },
       display: ["group-hover"]
     },
