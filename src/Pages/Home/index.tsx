@@ -1,4 +1,5 @@
-import { ShowcaseBanner } from ".."
+import { ShowcaseBanner } from "../../components"
+
 
 
 

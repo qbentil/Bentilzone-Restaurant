@@ -1,6 +1,6 @@
 import "react-toastify/dist/ReactToastify.css";
 
-import { Cheff1 } from "../Assets";
+import { Cheff1 } from "../../components/Assets";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
