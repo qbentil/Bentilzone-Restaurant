@@ -1,17 +1,15 @@
 import "react-toastify/dist/ReactToastify.css";
 
 import {
-  GithubAuthProvider,
-  GoogleAuthProvider,
+
   createUserWithEmailAndPassword,
   getAuth,
-  signInWithPopup,
+
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import ProviderAuth, { ImageBox } from ".";
 import { ToastContainer, toast } from "react-toastify";
 
-import { Logo } from "../Assets";
 import { app } from "../../firebase.config";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -73,7 +71,7 @@ const Login = () => {
               <div className="mb-6">
                 <input
                   type="text"
-                  className="form-control block w-full px-4 py-2  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="form-control block w-full px-4 py-2  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-600 focus:outline-none"
                   placeholder="Email address"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -82,7 +80,7 @@ const Login = () => {
               <div className="mb-6">
                 <input
                   type="password"
-                  className="form-control block w-full px-4 py-2  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  className="form-control block w-full px-4 py-2  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-600 focus:outline-none"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -91,7 +89,7 @@ const Login = () => {
               <div className="flex justify-between items-center mb-6"></div>
 
               <p
-                className="flex items-center justify-center px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                className="flex items-center justify-center px-7 py-3 bg-gradient-to-br from-orange-400 to-orange-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 onClick={EmailAuth}
               >
                 Sign Up
@@ -104,7 +102,7 @@ const Login = () => {
               </div>
               <Link
                 to={"/login"}
-                className="flex items-center justify-center px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                className="flex items-center justify-center px-7 py-3 bg-gradient-to-br from-orange-400 to-orange-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out w-full"
               >
                 Login
               </Link>
