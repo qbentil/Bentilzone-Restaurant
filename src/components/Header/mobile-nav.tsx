@@ -14,8 +14,8 @@ const MobileNav = ({
   setIsOpen: any;
 }) => {
   return (
-    <div className="flex flex-col bg-primary items-start justify-start gap-16 w-screen h-screen  overflow-y-hidden  z-50 overflow-hidden ">
-      <motion.div className="flex items-center justify-between w-screen h-24 bg-slate-100 px-10">
+    <div className="flex flex-col bg-cardOverlay backdrop-blur-sm items-start justify-start gap-16 w-screen h-screen  overflow-y-hidden  z-50 overflow-hidden ">
+      <motion.div className="flex items-center justify-between w-screen h-24  px-10">
         <motion.div
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.1 }}

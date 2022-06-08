@@ -34,7 +34,7 @@ const Header = () => {
   };
 
   return (
-    <header className="w-screen fixed z-50 bg-primary   md:p-3 md:px-4 lg:p-6 lg:px-16">
+    <header className="w-screen fixed z-50 bg-cardOverlay backdrop-blur-md md:p-3 md:px-4 lg:p-6 lg:px-16">
       {/* Tablet and Desktop */}
       <div className="hidden md:flex w-full justify-between itesm-center">
         <Link to={"/"}>
