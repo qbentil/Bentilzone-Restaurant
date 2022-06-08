@@ -1,15 +1,16 @@
 import "react-toastify/dist/ReactToastify.css";
 
-import { Cheff, Cheff1 } from "../Assets";
+import { Cheff1 } from "../Assets";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   getAuth,
   signInWithPopup,
 } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
+import { BsGithub } from "react-icons/bs";
 
 import { app } from "../../firebase.config";
 import { motion } from "framer-motion";
@@ -47,26 +48,18 @@ const ProviderAuth = () => {
       <ToastContainer />
       <motion.p
         whileHover={{ scale: 1.1 }}
-        className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer hover:shadow-sm"
+        className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer shadow-sm hover:bg-slate-100"
         // onClick={() => AUTH({ provider: GITHUB_PROVIDER })}
       >
-        <img
-          alt="github"
-          className="w-5 mr-1"
-          src="https://demos.creative-tim.com/notus-js/assets/img/github.svg "
-        />
+        <BsGithub className="text-xl w-5 mr-1" />
         <span>Github</span>
       </motion.p>
       <motion.p
-              whileHover={{ scale: 1.1 }}
-        className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer hover:shadow-sm"
+        whileHover={{ scale: 1.1 }}
+        className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer shadow-sm hover:bg-slate-100"
         onClick={() => AUTH({ provider: GOOGLE_PROVIDER })}
       >
-        <img
-          alt="google"
-          className="w-5 mr-1"
-          src="https://demos.creative-tim.com/notus-js/assets/img/google.svg"
-        />
+        <FcGoogle className="text-xl w-5 mr-1" />
         <span>Google</span>
       </motion.p>
     </div>
@@ -74,11 +67,11 @@ const ProviderAuth = () => {
 };
 
 export const ImageBox = () => {
-    return (
-        <div className="hidden md:block md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-        <img src={Cheff1} className="w-96 " alt="Phone" />
-      </div>
-    )
-}
+  return (
+    <div className="hidden md:block md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
+      <img src={Cheff1} className="w-96 " alt="Phone" />
+    </div>
+  );
+};
 
 export default ProviderAuth;

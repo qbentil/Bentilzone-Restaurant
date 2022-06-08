@@ -74,7 +74,7 @@ const Login = () => {
   };
 
   return (
-    <section className="w-full h-auto">
+    <section className="w-full h-auto ">
       <ToastContainer />
       <div className="container md:py-10 h-full">
         <div className="flex justify-center items-center flex-wrap h-full g-3 text-gray-800">
