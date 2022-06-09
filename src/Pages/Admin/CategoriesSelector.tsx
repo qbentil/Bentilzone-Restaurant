@@ -19,8 +19,8 @@ const CategoriesSelector: React.FC<Props> = ({
 }) => {
   return (
     <select name="categories" id="categories" className="outline-none w-full capitalize text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer" onChange={(e) => action(e.target.value)}>
-      <option defaultValue={selected}  className="bg-white capitalize">
-        {selected}
+      <option defaultValue={selected? selected: "Select category"}  className="bg-white capitalize">
+        {selected? selected: "Select category"}
       </option>
       {categories
         .filter((cat) => cat.urlParam !== selected)
