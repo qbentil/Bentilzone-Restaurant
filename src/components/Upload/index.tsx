@@ -1,33 +1,10 @@
 import { MdCloudUpload } from 'react-icons/md'
-import "react-toastify/dist/ReactToastify.css";
-import {  toast } from "react-toastify";
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from '../../firebase.config';
+import { firebaseUploadImage } from '../../Firebase';
 
 const Upload = ({action, promise, errorHandler, progressHandler}:{action:any, promise:any, errorHandler:any, progressHandler:any}) => {
     const uploadImage = (e:any) => {
-      promise(true);
-      toast.info(`Upload started.....`, {icon : <MdCloudUpload className='text-blue-600' />})
-      const imageFile = e.target.files[0];
-      const storageRef = ref(storage, `Images/Products/${Date.now()}-${imageFile.name}`)
-      const uploadPhoto = uploadBytesResumable(storageRef, imageFile)
-      uploadPhoto.on("state_changed", (snapshot) => {
-        progressHandler(Math.round((snapshot.bytesTransferred / snapshot.totalBytes)* 100))
-      }, (error) => {
-        console.log(error);
-        toast.error("Error while uploading, Try again🤗")
-        errorHandler(true)
-        setTimeout(() => {
-            promise(false)
-        }, 3000)
-      }, () => {
-          getDownloadURL(uploadPhoto.snapshot.ref).then((downloadUrl => {
-            action(downloadUrl);
-            promise(false)
-            toast.success("Photo Uploaded Successfully😊")
-          })
-        )
-      })
+      const imageFIle = e.target.files[0]
+      firebaseUploadImage(imageFIle, promise, progressHandler, errorHandler, action)
     }
   return (
 <div className="flex justify-center items-center w-full h-full">
