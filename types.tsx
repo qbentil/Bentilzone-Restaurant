@@ -5,3 +5,11 @@ export type FoodData = {
     price: string;
     imgSrc: string;
   };
+
+  export type FoodCategory = {
+    id: number;
+    name: string;
+    urlParam: string;
+  }
+
+  export type FoodCategories = FoodCategory[];

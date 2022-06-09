@@ -1,25 +1,17 @@
-import "react-toastify/dist/ReactToastify.css";
 
-import {
-
-  createUserWithEmailAndPassword,
-  getAuth,
-
-} from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import ProviderAuth, { ImageBox } from ".";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
-import { app } from "../../firebase.config";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
+import { EMAILSIGNUP } from "../../Firebase";
 
 // toast.configure()
 
 const Login = () => {
   const navigate = useNavigate();
-  const firebaseAuth = getAuth(app);
   const [{ user }, dispatch] = useStateValue();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,26 +20,29 @@ const Login = () => {
     if (!user) {
       if (email.length > 0 && password.length > 0) {
         toast.promise(
-          createUserWithEmailAndPassword(firebaseAuth, email, password)
-            .then((userCredential) => {
-              // Signed in
-              const user = userCredential.user;
-              dispatch({
-                type: "SET_USER",
-                user: user,
-              });
-              localStorage.setItem("user", JSON.stringify(user));
-              navigate("/");
-            })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              toast.error(errorMessage, { autoClose: 15000 });
-            }),
+          EMAILSIGNUP(email, password),
           {
-            pending: "Signing up...",
+            pending: "Creating Account...",
+            success: "Signup successful: WELCOME!",
+            error: "Error Creating account, Please try again🤗",
           }
+        ).then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          dispatch({
+            type: "SET_USER",
+            user: user,
+          });
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate("/");
+        }
+        ).catch((error) => {
+          // const errorCode = error.code;
+          const errorMessage = error.message;
+          toast.error(errorMessage, { autoClose: 15000 });
+        }
         );
+
       } else {
         toast.warn("Please fill all the fields", { autoClose: 15000 });
       }
@@ -56,7 +51,6 @@ const Login = () => {
 
   return (
     <section className="w-full h-auto">
-      <ToastContainer />
       <div className="container md:py-10 h-full">
         <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
         <ImageBox />

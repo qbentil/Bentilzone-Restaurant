@@ -1,46 +1,47 @@
 import "react-toastify/dist/ReactToastify.css";
 
-import { Cheff1 } from "../Assets";
+import { Cheff1 } from "../../components/Assets";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 
-import { app } from "../../firebase.config";
 import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
+import { AUTHPROVIDER } from "../../Firebase";
 
 const ProviderAuth = () => {
   const GOOGLE_PROVIDER = new GoogleAuthProvider();
   const GITHUB_PROVIDER = new GithubAuthProvider();
   const [{ user }, dispatch] = useStateValue();
-  const firebaseAuth = getAuth(app);
   const navigate = useNavigate();
 
   const AUTH = async ({ provider }: { provider: any }) => {
     if (!user) {
-      try {
-        const {
-          user: { refreshToken, providerData },
-        } = await signInWithPopup(firebaseAuth, provider);
-        dispatch({
-          type: "SET_USER",
-          user: providerData[0],
+      toast
+        .promise(AUTHPROVIDER(provider), {
+          pending: "Signing in...",
+          success: "Signin successful",
+          error: "Error Signing in, Please try again🤗",
+        }).then(({ refreshToken, providerData }) => {
+          // Signed in
+          const user = providerData[0];
+          dispatch({
+            type: "SET_USER",
+            user: user,
+          });
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate("/");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          toast.error(errorMessage, { autoClose: 15000 });
         });
-        localStorage.setItem("user", JSON.stringify(providerData[0]));
-        navigate("/");
-      } catch (error) {
-        toast.error(
-          "Unnable to connect to provider.Check your internet and try again.",
-          { autoClose: 15000 }
-        );
-      }
     }
   };
   return (

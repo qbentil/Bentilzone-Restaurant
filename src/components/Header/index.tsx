@@ -14,11 +14,11 @@ import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
 
 const Header = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const firebaseAuth = getAuth(app);
   const [{ user }, dispatch] = useStateValue();
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenMobileNav, setIsOpenMobileNav] = useState(false)
+  const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
   const logout = async () => {
     if (user) {
       await firebaseAuth.signOut();
@@ -43,7 +43,9 @@ const Header = () => {
             className="flex items-center gap-2 cursor-pointer"
           >
             <img src={Logo} alt="Logo" className="md:w-6 lg:w-8 object-cover" />
-            <p className="text-headingColor md:text-lg lg:text-xl font-bold">Bentilzone</p>
+            <p className="text-headingColor md:text-lg lg:text-xl font-bold">
+              Bentilzone
+            </p>
           </motion.div>
         </Link>
 
@@ -105,7 +107,7 @@ const Header = () => {
             </Link>
             {user ? (
               <div
-                className={`flex items-center gap-3 border px-3 py-1 rounded-lg relative`}
+                className={`flex items-center gap-3 px-3 py-1 rounded-lg relative`}
               >
                 <motion.div
                   whileHover={{ scale: 1.1 }}
@@ -117,6 +119,9 @@ const Header = () => {
                     alt="user-profile"
                     onClick={() => setIsOpen(!isOpen)}
                   />
+                  <p className="text-headingColor cursor-pointer flex items-center justify-center gap-2">
+                    <RiArrowDropDownLine />
+                  </p>
                   {isOpen && <DropDown user={user} action={logout} />}
                 </motion.div>
               </div>

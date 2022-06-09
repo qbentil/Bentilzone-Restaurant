@@ -1,69 +1,45 @@
-import "react-toastify/dist/ReactToastify.css";
-
 import { Link, useNavigate } from "react-router-dom";
 import ProviderAuth, { ImageBox } from ".";
-import { ToastContainer, toast } from "react-toastify";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
+import { toast } from "react-toastify";
 
-import { app } from "../../firebase.config";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
+import { EMAILSIGNIN } from "../../Firebase";
 
 const Login = () => {
   const navigate = useNavigate();
-  const firebaseAuth = getAuth(app);
   const [{ user }, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const AUTH = async ({ provider }: { provider: any }) => {
-    if (!user) {
-      try {
-        const {
-          user: { refreshToken, providerData },
-        } = await signInWithPopup(firebaseAuth, provider);
-        dispatch({
-          type: "SET_USER",
-          user: providerData[0],
-        });
-        localStorage.setItem("user", JSON.stringify(providerData[0]));
-        navigate("/");
-      } catch (error) {
-        toast.error(
-          "Unnable to connect to provider.Check your internet and try again.",
-          { autoClose: 15000 }
-        );
-      }
-    }
-  };
+
   const EmailAuth = () => {
     if (!user) {
       if (email.length > 0 && password.length > 0) {
         toast.promise(
-          signInWithEmailAndPassword(firebaseAuth, email, password)
-            .then((userCredential) => {
-              // Signed in
-              const user = userCredential.user;
-              dispatch({
-                type: "SET_USER",
-                user: user,
-              });
-              localStorage.setItem("user", JSON.stringify(user));
-              navigate("/");
-            })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              toast.error(errorMessage, { autoClose: 15000 });
-            }),
+          EMAILSIGNIN(email, password),
           {
-            pending: "Loading...",
+            pending: "Creating Account...",
+            success: "Signup successful: WELCOME!",
+            error: "Error Creating account, Please try again🤗",
           }
+        ).then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          dispatch({
+            type: "SET_USER",
+            user: user,
+          });
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate("/");
+        }
+        ).catch((error) => {
+          // const errorCode = error.code;
+          const errorMessage = error.message;
+          toast.error(errorMessage, { autoClose: 15000 });
+        }
         );
+
       } else {
         toast.warn("Please fill all the fields", { autoClose: 15000 });
       }
@@ -72,7 +48,6 @@ const Login = () => {
 
   return (
     <section className="w-full h-auto ">
-      <ToastContainer />
       <div className="container md:py-10 h-full">
         <div className="flex justify-center items-center flex-wrap h-full g-3 text-gray-800">
           <ImageBox />
