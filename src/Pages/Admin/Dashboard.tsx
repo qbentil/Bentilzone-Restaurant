@@ -9,23 +9,24 @@ import { Categories } from "../../utils/categories";
 import CategoriesSelector from "./CategoriesSelector";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { firebaseRemoveUploadedImage } from "../../Firebase";
 // import {Logo} from "../../"
 const Dashboard = () => {
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [price, setPrice] = useState("");
-  const [uploadeProgess, setUploadProgress] = useState(0);
   const [image, setImage] = useState(null);
-  const [category, setCategory] = useState("Select category");
+  const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loaderMessage, setLoadermessage] = useState("")
   const [hasError, setHasError] = useState(false);
 
   // const notify = () => {
   //   toast.success("Product added successfully", { autoClose: 15000 });
   // };
   const deleteImage = () => {
-    setImage(null)
-    setHasError(true)
+    setLoadermessage("Removing Photo......")
+    firebaseRemoveUploadedImage(image, setImage, setLoading)
   };
   const saveItem = () => {}
   return (
@@ -57,7 +58,7 @@ const Dashboard = () => {
         </div>
         <div className="group flex justify-center items-center flex-col border-2 border-dotted border-gray-300 w-full h-[225px]  md:h-[420px] round-lg">
           {loading ? (
-            <Loader progress = {uploadeProgess} />
+            <Loader progress = {loaderMessage} />
           ) : (
             <>
               {image ? (
@@ -78,7 +79,7 @@ const Dashboard = () => {
                   </div>
                 </>
               ) : (
-                <AssetUploader action = {setImage} progressHandler = {setUploadProgress} promise = {setLoading} errorHandler = {setHasError} />
+                <AssetUploader action = {setImage} progressHandler = {setLoadermessage} promise = {setLoading} errorHandler = {setHasError} />
               )}
             </>
           )}
