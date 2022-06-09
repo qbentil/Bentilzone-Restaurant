@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-const Loader = ({progress}:{progress:number}) => {
+const Loader = ({progress}:{progress:string}) => {
   return (
     <>
       <motion.button
@@ -25,7 +25,7 @@ const Loader = ({progress}:{progress:number}) => {
             fill="#fff"
           />
         </svg>
-        Uploading Status: {progress}%
+        {progress}
       </motion.button>
     </>
   );
