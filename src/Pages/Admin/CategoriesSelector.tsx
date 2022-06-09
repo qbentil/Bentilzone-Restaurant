@@ -23,9 +23,9 @@ const CategoriesSelector: React.FC<Props> = ({
         {selected? selected: "Select category"}
       </option>
       {categories
-        .filter((cat) => cat.urlParam !== selected)
-        .map((category) => (
-          <option key={category.id} value={category.urlParam} className = "text-base border-0 outline-none uppercase bg-white text-headingColor">
+        // .filter((cat) => cat.urlParam !== selected)
+        .map((category, index) => (
+          <option key={index} value={category.urlParam} className = "text-base border-0 outline-none uppercase bg-white text-headingColor">
             {category.name}
           </option>
         ))}
