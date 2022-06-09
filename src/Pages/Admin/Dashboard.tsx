@@ -2,16 +2,15 @@
 import { toast } from "react-toastify";
 
 import { AssetUploader, Loader } from "../../components";
-import { MdAttachMoney, MdDelete, MdFastfood, MdFoodBank } from "react-icons/md";
-
-import { BiCategory } from "react-icons/bi";
+import {   MdDeleteOutline,  MdOutlineDataSaverOn,  MdOutlineFastfood, MdOutlineFoodBank, MdOutlineProductionQuantityLimits } from "react-icons/md";
+import {GiTakeMyMoney} from "react-icons/gi";
+import { BiCategory, BiFoodMenu } from "react-icons/bi";
 import { Categories } from "../../utils/categories";
 import CategoriesSelector from "./CategoriesSelector";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { firebaseRemoveUploadedImage, firebaseSaveProduct } from "../../Firebase";
-import { setValues } from "framer-motion/types/render/utils/setters";
-// import {Logo} from "../../"
+
 const Dashboard = () => {
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
@@ -20,6 +19,7 @@ const Dashboard = () => {
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState("");
+  const [description, setDescription] = useState("");
   const [loaderMessage, setLoadermessage] = useState("")
 
   const deleteImage = () => {
@@ -27,7 +27,7 @@ const Dashboard = () => {
     firebaseRemoveUploadedImage(image, setImage, setLoading)
   };
   const saveItem = () => {
-    setLoadermessage("Saving Product.....")
+    setLoadermessage(`Saving Product ${title}.`)
     setLoading(true)
     try {
       if(!title || !calories || !price || !image || !category) {
@@ -40,6 +40,7 @@ const Dashboard = () => {
           title: title,
           calories: calories,
           category: category,
+          description: description,
           price: price,
           imageURL: image,
           qty: quantity,
@@ -71,8 +72,9 @@ const Dashboard = () => {
     setCalories("");
     setPrice("");
     setImage(null);
-    setCategory("");
+    // setCategory("");
     setQuantity("");
+    setDescription("");
 
   }
 
@@ -90,7 +92,7 @@ const Dashboard = () => {
         className="border w-[90%] md:w-[75%]  flex border-gray-300 items-center rounded-lg p-4 flex-col justify-center gap-4  "
       >
         <div className="w-full py-3 border-b border-gray-300 flex -tems-center gap-2">
-          <MdFastfood className="text-xl text-gray-600" />
+          <MdOutlineFastfood className="text-xl text-gray-600" />
           <input
             type="text"
             required
@@ -112,7 +114,7 @@ const Dashboard = () => {
           />
           </div>
           <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdAttachMoney className="text-gray-600 text-2xl" />
+            <MdOutlineProductionQuantityLimits className="text-gray-600 text-2xl" />
             <input
               type="text"
               required
@@ -142,7 +144,7 @@ const Dashboard = () => {
                       className="absolute bottom-3 right-3 rounded-full p-2 md:p-5 bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out"
                       onClick={() => deleteImage()}
                     >
-                      <MdDelete className="text-white" />
+                      <MdDeleteOutline className="text-white" />
                     </button>
                   </div>
                 </>
@@ -154,7 +156,7 @@ const Dashboard = () => {
         </div>
         <div className="w-full flex flex-col md:flex-row items-center gap-3">
           <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdFoodBank className="text-gray-600 text-2xl" />
+            <MdOutlineFoodBank className="text-gray-600 text-2xl" />
             <input
               type="text"
               required
@@ -166,7 +168,7 @@ const Dashboard = () => {
             />
           </div>
           <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdAttachMoney className="text-gray-600 text-2xl" />
+            <GiTakeMyMoney className="text-gray-600 text-2xl" />
             <input
               type="text"
               required
@@ -178,10 +180,22 @@ const Dashboard = () => {
             />
           </div>
         </div>
+        <div className="w-full py-3 border-b border-gray-300 flex -tems-center gap-2">
+          <BiFoodMenu className="text-xl text-gray-600" />
+          <input
+            type="text"
+            required
+            placeholder="Short Description"
+            autoFocus
+            className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
 
         <div className="w-full flex items-center justify-center">
-          <motion.button whileHover={{scale:1.1}} className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none rounded bg-orange-500 px-12 py-2 text-lg text-white" onClick={() => saveItem()}>
-            Save
+          <motion.button whileHover={{scale:1.1}} className="ml-0 flex justify-center items-center gap-2 flex-row-reverse md:ml-auto w-full md:w-auto border-none outline-none rounded bg-orange-500 px-12 py-2 text-lg text-white" onClick={() => saveItem()}>
+           <MdOutlineDataSaverOn /> Save
           </motion.button>
         </div>
       </div>
