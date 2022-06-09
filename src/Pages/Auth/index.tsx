@@ -2,21 +2,22 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { Cheff1 } from "../../components/Assets";
 import {
-  GithubAuthProvider,
+  // GithubAuthProvider,
   GoogleAuthProvider,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 
 import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
 import { AUTHPROVIDER } from "../../Firebase";
+import { MdOutlineNotificationsActive } from "react-icons/md";
 
 const ProviderAuth = () => {
   const GOOGLE_PROVIDER = new GoogleAuthProvider();
-  const GITHUB_PROVIDER = new GithubAuthProvider();
+  // const GITHUB_PROVIDER = new GithubAuthProvider();
   const [{ user }, dispatch] = useStateValue();
   const navigate = useNavigate();
 
@@ -27,7 +28,8 @@ const ProviderAuth = () => {
           pending: "Signing in...",
           success: "Signin successful",
           error: "Error Signing in, Please try again🤗",
-        }).then(({ refreshToken, providerData }) => {
+        })
+        .then(({ refreshToken, providerData }) => {
           // Signed in
           const user = providerData[0];
           dispatch({
@@ -38,7 +40,7 @@ const ProviderAuth = () => {
           navigate("/");
         })
         .catch((error) => {
-          const errorCode = error.code;
+          // const errorCode = error.code;
           const errorMessage = error.message;
           toast.error(errorMessage, { autoClose: 15000 });
         });
@@ -46,11 +48,18 @@ const ProviderAuth = () => {
   };
   return (
     <div className="flex items-center justify-center gap-5  text-center">
-      <ToastContainer />
       <motion.p
         whileHover={{ scale: 1.1 }}
         className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer shadow-sm hover:bg-slate-100"
-        // onClick={() => AUTH({ provider: GITHUB_PROVIDER })}
+        onClick={() =>
+          toast.warn("GitHub Signin is not available yet", {
+            autoClose: 2000,
+            icon: (
+              <MdOutlineNotificationsActive className="text-yellow-500 text-xl" />
+            ),
+            toastId: "github",
+          })
+        }
       >
         <BsGithub className="text-xl w-5 mr-1" />
         <span>Github</span>
@@ -69,8 +78,18 @@ const ProviderAuth = () => {
 
 export const ImageBox = () => {
   return (
-    <div className="hidden md:block md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-      <img src={Cheff1} className="w-96 " alt="Phone" />
+    <div className="hidden md:w-8/12 lg:w-6/12 mb-12 md:mb-0 md:flex ">
+      <motion.img
+        whileHover={
+          {
+            rotate: [0, -10, 10, -10, 0],
+            // duration: 0.5,
+          }
+        }
+        src={Cheff1}
+        className="w-96 cursor-pointer"
+        alt="logo-login"
+      />
     </div>
   );
 };

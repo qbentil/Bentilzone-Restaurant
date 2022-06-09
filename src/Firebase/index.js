@@ -1,15 +1,14 @@
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
 import {
   getDownloadURL,
   ref,
   uploadBytesResumable,
   deleteObject,
 } from "firebase/storage";
-import React from "react";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { toast } from "react-toastify";
-import { useStateValue } from "../context/StateProvider";
+
 import { app, firestore, storage } from "../firebase.config";
 
 export const firebaseUploadImage = (
@@ -83,6 +82,8 @@ export const firebaseSaveProduct = async (data) => {
   });
 };
 
+
+// Authenticate user using PROVIDER
 export const AUTHPROVIDER = async (provider) => {
   const firebaseAuth = getAuth(app);
   const {
@@ -90,11 +91,25 @@ export const AUTHPROVIDER = async (provider) => {
   } = await signInWithPopup(firebaseAuth, provider);
   return { refreshToken, providerData };
 };
+
+// Signup with email and password
 export const EMAILSIGNUP = async (email, password) => {
   const firebaseAuth = getAuth(app);
   return createUserWithEmailAndPassword(firebaseAuth, email, password)
-};
+};  
+
+//  Signin with email and password
 export const EMAILSIGNIN = async (email, password) => {
   const firebaseAuth = getAuth(app);
   return signInWithEmailAndPassword(firebaseAuth, email, password)
 };
+
+
+// Fetch All Food Products  from Firestore
+export const firebaseFetchFoodItems = async () => {
+  const items = await getDocs(
+    query(collection(firestore, "Food"), orderBy("id", "desc"))
+  );
+
+  return items.docs.map((doc) => doc.data())
+}
