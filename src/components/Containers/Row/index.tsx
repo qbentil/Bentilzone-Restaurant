@@ -1,12 +1,11 @@
-import { motion } from "framer-motion";
-import {  useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
-import { SingleFoodItem } from "..";
 import { FoodItem } from "../../../../types";
-import {Loader2} from "../../Loader";
+import Loader from "../../Loader";
+import { SingleFoodItem } from "..";
+import { motion } from "framer-motion";
 
-
-const RowContainer = ({scrollOffset, flag, items }: {scrollOffset:number, flag: boolean; items: FoodItem[] }) => {
+const RowContainer = ({scrollOffset, flag, items, className }: {scrollOffset:number, flag: boolean; items: FoodItem[], className?:string }) => {
   const rowContainerRef = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     console.log(scrollOffset)
@@ -21,7 +20,7 @@ const RowContainer = ({scrollOffset, flag, items }: {scrollOffset:number, flag: 
       initial={{ opacity: 0, x: 200 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 200 }}
-      className={`w-full my-12 flex items-center justify-center min-h-[200px] gap-4 bg-containerbg ${
+      className={`${className} w-full my-12 flex items-center ${!items && "justify-center"}  min-h-[200px] gap-4  px-2 ${
         flag ? "overflow-x-scroll scrollbar-hidden scroll-smooth" : "overflow-x-hidden flex-wrap"
       }`}
     >
@@ -29,7 +28,7 @@ const RowContainer = ({scrollOffset, flag, items }: {scrollOffset:number, flag: 
         <SingleFoodItem key={item.id} item = {item} />
       ))}
       {
-        !items && (<Loader2 />)
+        !items && (<Loader progress = {"Fetching fruits...."} />)
       }
     </motion.div>
   );
