@@ -5,7 +5,7 @@ export const data = [
     {
         id: 2,
         title: 'Strawberries',
-        desc: "Fresh Straberries",
+        desc: "Fresh Strawberries",
         price: '7.25',
         imgSrc: Strawberry
     },
