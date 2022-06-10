@@ -1,15 +1,15 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Header } from "./components";
-import {  Admin, Home, Login, Signup } from "./Pages";
+import { Admin, Home, Login, Signup } from "./Pages";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import {AnimatePresence} from "framer-motion";
-import {useStateValue} from "./context/StateProvider";
-import {firebaseFetchFoodItems} from "./Firebase";
+import { AnimatePresence } from "framer-motion";
+import { useStateValue } from "./context/StateProvider";
+import { firebaseFetchFoodItems } from "./Firebase";
 import { useEffect } from "react";
 function App() {
-  const [{foodItems}, dispatch] = useStateValue();
+  const [{ foodItems }, dispatch] = useStateValue();
 
   const fetchData = async () => {
     await firebaseFetchFoodItems().then((data) => {
@@ -17,8 +17,8 @@ function App() {
         type: "SET_FOOD_ITEMS",
         foodItems: data,
       });
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     fetchData();
