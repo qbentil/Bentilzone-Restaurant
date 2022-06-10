@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+
 const Loader = ({progress}:{progress:string}) => {
   return (
     <>
@@ -7,11 +8,11 @@ const Loader = ({progress}:{progress:string}) => {
         whileHover={{scale:1.1}}
         disabled
         type="button"
-        className="py-2.5 px-5 mr-2 text-sm font-medium text-gray-200 bg-orange-500 rounded-lg border border-gray-200  inline-flex items-center cursor-pointer"
+        className="py-2.5 px-5 mr-2 text-sm font-medium text-orange-400 bg-transparent rounded-lg  inline-flex items-center gap-2 cursor-pointer"
       >
         <svg
           role="status"
-          className="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600"
+          className="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-orange-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
