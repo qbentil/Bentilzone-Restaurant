@@ -1,15 +1,32 @@
-export type FoodData = {
+export type foodItemStatic = {
+  id: number;
+  title: string;
+  desc: string;
+  price: string;
+  imgSrc: string;
+}
+export type foodItemsStatic = {
+  items: foodItemStatic[];
+}
+export type FoodItem = {
     id: number;
     title: string;
-    desc: string;
+    description?: string;
     price: string;
-    imgSrc: string;
-  };
+    imageURL: string;
+    calories: string;
+    qty: string;
+    category: string;
+};
 
-  export type FoodCategory = {
-    id: number;
-    name: string;
-    urlParam: string;
-  }
+export type FoodItems = {
+  items: FoodItem[];
+}
+
+export type FoodCategory = {
+  id: number;
+  name: string;
+  urlParam: string;
+}
 
   export type FoodCategories = FoodCategory[];
