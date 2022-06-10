@@ -31,7 +31,7 @@ const Dashboard = () => {
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
   const [loaderMessage, setLoadermessage] = useState("");
-  const [{foodItems}, dispatch] = useStateValue();
+  const [{ foodItems }, dispatch] = useStateValue();
 
   const deleteImage = () => {
     setLoadermessage("Removing Photo......");
@@ -96,15 +96,14 @@ const Dashboard = () => {
     return value;
   };
 
-
   const fetchData = async () => {
     await firebaseFetchFoodItems().then((data) => {
       dispatch({
         type: "SET_FOOD_ITEMS",
         foodItems: data,
       });
-    })
-  }
+    });
+  };
 
   return (
     <div className="w-full min-h-[80vh] flex items-center justify-center mt-5">
@@ -157,13 +156,15 @@ const Dashboard = () => {
                       alt="uploaded food"
                       className="w-full h-full object-cover"
                     />
-                    <button
+                    <motion.button
+                      whileTap={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.2 }}
                       title="Remove Photo"
                       className="absolute bottom-3 right-3 rounded-full p-2 md:p-5 bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out"
                       onClick={() => deleteImage()}
                     >
                       <MdDeleteOutline className="text-white" />
-                    </button>
+                    </motion.button>
                   </div>
                 </>
               ) : (
