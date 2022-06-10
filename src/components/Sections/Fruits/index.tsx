@@ -1,6 +1,7 @@
 import { PrevNext as PrevNextButtons, Title } from ".."
-import RowContainer from "../../Containers/Row"
+
 import { FilterFood } from "../../../utils/filters"
+import RowContainer from "../../Containers/Row"
 import { useState } from "react"
 
 const Fruits = () => {
@@ -14,7 +15,7 @@ const Fruits = () => {
           <Title title="Our fresh & healthy fruits" />
           <PrevNextButtons onNext={() => setScrollValue(1000)} onPrev = {() => setScrollValue(-1000)} />
         </div>
-        <RowContainer scrollOffset = {scrollValue} flag = {true} items = {fruits} />
+        <RowContainer className="bg-containerbg" scrollOffset = {scrollValue} flag = {true} items = {fruits} />
     </section>
   )
 }
