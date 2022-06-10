@@ -26,7 +26,7 @@ const RowContainer = ({scrollOffset, flag, items }: {scrollOffset:number, flag: 
       }`}
     >
       {items && items.map((item: FoodItem) => (
-        <SingleFoodItem item = {item} />
+        <SingleFoodItem key={item.id} item = {item} />
       ))}
       {
         !items && (<Loader2 />)
