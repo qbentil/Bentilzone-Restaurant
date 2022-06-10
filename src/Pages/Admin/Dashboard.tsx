@@ -1,6 +1,5 @@
-import { toast } from "react-toastify";
-
 import { AssetUploader, Loader } from "../../components";
+import { BiCategory, BiFoodMenu } from "react-icons/bi";
 import {
   MdDeleteOutline,
   MdOutlineDataSaverOn,
@@ -8,17 +7,18 @@ import {
   MdOutlineFoodBank,
   MdOutlineProductionQuantityLimits,
 } from "react-icons/md";
-import { GiTakeMyMoney } from "react-icons/gi";
-import { BiCategory, BiFoodMenu } from "react-icons/bi";
-import { Categories } from "../../utils/categories";
-import CategoriesSelector from "./CategoriesSelector";
-import { useState } from "react";
-import { motion } from "framer-motion";
 import {
   firebaseFetchFoodItems,
   firebaseRemoveUploadedImage,
   firebaseSaveProduct,
 } from "../../Firebase";
+
+import { Categories } from "../../utils/categories";
+import CategoriesSelector from "./CategoriesSelector";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
 
 const Dashboard = () => {
