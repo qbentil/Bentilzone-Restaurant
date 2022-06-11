@@ -1,9 +1,11 @@
 export const actionTypes = {
     SET_USER: 'SET_USER',
     SET_FOOD_ITEMS: 'SET_FOOD_ITEMS',
+    TOGGLE_CART: 'TOGGLE_CART',
     // SET_ORDERS: 'SET_ORDERS',
     // SET_PRODUCTS: 'SET_PRODUCTS',
     // SET_CART: 'SET_CART',
+
 }
 
 const reducer = (state, action) => {
@@ -18,7 +20,11 @@ const reducer = (state, action) => {
                 ...state,
                 foodItems: action.foodItems,
             };
-
+        case actionTypes.TOGGLE_CART:
+            return {
+                ...state,
+                showCart: action.showCart,
+            };
             default:
                 return state;
     }
