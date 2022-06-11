@@ -30,7 +30,7 @@ export const SingleFoodItem = ({item, col}:{item:FoodItem, col?:boolean}) => {
           <p className="text-textColor font-semi-bold text-lg">
             {title}
           </p>
-          <p className="mt-1 text-sm text-gray-500">{calories} calories</p>
+          <p className="mt-1 text-sm text-gray-500">{description} </p>
           <div className="flex items-center justify-between gap-8 ">
             <p className="text-base text-headingColor font-semibold">
               <span className="text-sm text-red-600">₵</span> {price}
