@@ -11,6 +11,9 @@ module.exports = {
         btnOverlay: "rgba(255, 255, 255, 0.8)",
         lightGray: "#9ca0ab",
         containerbg: "rgba(255, 131, 0, 0.04)",
+        cartBg: "#282a2c",
+        cartItem: "#2e3033",
+        cartTotal: "#343739",
       },
       display: ["group-hover"]
     },
