@@ -5,6 +5,7 @@ import Loader from "../Loader";
 import { SingleFoodItem } from "../FoodItem";
 import { motion } from "framer-motion";
 import EmptyCart from "../EmptyCart";
+import NotFound from "../NotFound";
 
 const Container = ({scrollOffset, col, items, className }: {scrollOffset:number, col?: boolean; items: FoodItem[], className?:string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -27,10 +28,10 @@ const Container = ({scrollOffset, col, items, className }: {scrollOffset:number,
         <SingleFoodItem key={item.id} item = {item} col = {col} />
       ))}
       {
-        !items && (!col ? (<Loader progress = {"Fetching Food Items....."} />): (<EmptyCart  />))
+        !items && (!col ? (<Loader progress = {"Fetching Food Items....."} />): (<NotFound text="Fetching Food Items..."  />))
       }
       {
-        items && items.length <= 0 &&  (<EmptyCart  />)
+        items && items.length <= 0 &&  (<NotFound text="No Food Items Available "  />)
       }
     </motion.div>
   );
