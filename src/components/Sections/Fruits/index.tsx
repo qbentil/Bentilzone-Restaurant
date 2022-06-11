@@ -1,7 +1,7 @@
 import { PrevNext as PrevNextButtons, Title } from ".."
 
+import Container from "../../Container"
 import { FilterFood } from "../../../utils/filters"
-import RowContainer from "../../Containers/Row"
 import { useState } from "react"
 
 const Fruits = () => {
@@ -13,9 +13,9 @@ const Fruits = () => {
     <section className="w-full my-5">
         <div className="w-full flex items-center justify-between">
           <Title title="Our fresh & healthy fruits" />
-          <PrevNextButtons onNext={() => setScrollValue(1000)} onPrev = {() => setScrollValue(-1000)} />
+          <PrevNextButtons onNext={() => setScrollValue(10000)} onPrev = {() => setScrollValue(-10000)} />
         </div>
-        <RowContainer className="bg-containerbg" scrollOffset = {scrollValue} flag = {true} items = {fruits} />
+        <Container className="bg-containerbg" scrollOffset = {scrollValue} items = {fruits} />
     </section>
   )
 }
