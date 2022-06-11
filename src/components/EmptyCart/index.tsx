@@ -3,8 +3,9 @@ import { EmptyCartImg } from '../Assets'
 
 const EmptyCart = () => {
   return (
-    <div className='w-full p-5 flex items-center justify-center'>
-        <img className='md:w-1/2 w-[90%] h-auto' src={EmptyCartImg} alt='empty cart' />
+    <div className='w-full p-5 flex flex-col items-center gap-4 justify-center'>
+        <img className='h-[340px]' src={EmptyCartImg} alt='empty cart' />
+        <p className="text-textColor  font-semibold">Car is empty</p>
     </div>
   )
 }
