@@ -1,5 +1,5 @@
 import {FoodItem} from "../../../types";
-import { MdShoppingBasket } from "react-icons/md";
+import { MdAddShoppingCart, MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 
 export const SingleFoodItem = ({item, col}:{item:FoodItem, col?:boolean}) => {
@@ -23,7 +23,7 @@ export const SingleFoodItem = ({item, col}:{item:FoodItem, col?:boolean}) => {
             whileHover={{ scale: 1.2 }}
             className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer"
           >
-            <MdShoppingBasket className="text-white md:text-xl" />
+            <MdAddShoppingCart className="text-white md:text-xl" />
           </motion.div>
         </div>
         <div className="w-full flex items-end justify-end flex-col">
