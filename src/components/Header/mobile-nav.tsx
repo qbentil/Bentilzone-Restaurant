@@ -5,6 +5,7 @@ import { MdOutlineRestaurantMenu, MdShoppingBasket } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Logo } from "../Assets";
 import { motion } from "framer-motion";
+import { useStateValue } from "../../context/StateProvider";
 
 const MobileNav = ({
   isOpen,
@@ -13,6 +14,13 @@ const MobileNav = ({
   isOpen: boolean;
   setIsOpen: any;
 }) => {
+  const [{showCart}, dispatch] = useStateValue();
+  const handleToggleCart = () => {
+    dispatch({
+      type: "TOGGLE_CART",
+      showCart: !showCart
+    }); 
+  }
   return (
     <div className="flex flex-col bg-cardOverlay backdrop-blur-sm items-start justify-start gap-16 w-screen h-screen  overflow-y-hidden  z-50 overflow-hidden ">
       <motion.div className="flex items-center justify-between w-screen h-24  px-10">
@@ -23,6 +31,7 @@ const MobileNav = ({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 200 }}
           className="relative flex items-center justify-center text-textColor"
+          onClick={handleToggleCart}
         >
           <MdShoppingBasket className="text-4xl cursor-pointer" />
           <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-cartNumBg flex items-center justify-center">
