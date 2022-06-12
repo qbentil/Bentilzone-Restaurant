@@ -19,7 +19,7 @@ const CartTotal = () => {
         <p className="text-gray-50 text-base md:text-lg">-</p>
           <p className="text-gray-50 text-base md:text-lg "><span className="text-sm text-red-600">₵</span> {24.50}</p>
         </div>
-        <motion.button whileTap={{scale:0.8}} className='w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg transition-all duration-150 ease-out'>
+        <motion.button whileTap={{scale:0.8}} className='w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg'>
           Checkout
         </motion.button>
     </div>
