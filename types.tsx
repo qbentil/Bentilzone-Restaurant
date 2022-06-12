@@ -30,4 +30,14 @@ export type FoodCategory = {
   icon?: JSX.Element
 }
 
-  export type FoodCategories = FoodCategory[];
+export type cartItem = {
+  id: number;
+  fid: number;
+  uid: string;
+  qty: number;
+}
+
+export type cartItems = {
+  items: cartItem[]
+}
+export type FoodCategories = FoodCategory[];
