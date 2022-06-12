@@ -1,6 +1,6 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-import { Cart, Header } from "./components";
+import { Cart, Footer, Header } from "./components";
 import { Admin, Home, Login, Signup } from "./Pages";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -36,6 +36,8 @@ function App() {
             <Route path="/register" element={<Signup />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
+
+          <Footer />
         </main>
       </div>
     </AnimatePresence>
