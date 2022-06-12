@@ -114,6 +114,28 @@ export const firebaseFetchFoodItems = async () => {
   return shuffle(items.docs.map((doc) => doc.data()));
 }
 
+
+//  cart operation    
+export const firebaseAddToCart = async (data) => {
+  await setDoc(doc(firestore, "CartItems", `${Date.now()}`), data, {
+    merge: true,
+  });
+};
+
+
+export const firebaseFetchAllCartItems = async () => {
+  const items = await getDocs(
+    query(collection(firestore, "CartItems"), orderBy("id", "desc"))
+  );
+
+  return shuffle(items.docs.map((doc) => doc.data()));
+}
+
+export const firebaseUpdateCartItem = async (data) => {
+  await setDoc(doc(firestore, "CartItems", `${data.id}`), data, {
+    merge: true,
+  });
+}
 const  shuffle = (array) => {
   
   let currentIndex = array.length,  randomIndex;
