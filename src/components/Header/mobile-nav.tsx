@@ -14,13 +14,13 @@ const MobileNav = ({
   isOpen: boolean;
   setIsOpen: any;
 }) => {
-  const [{showCart}, dispatch] = useStateValue();
+  const [{ showCart, cartItems }, dispatch] = useStateValue();
   const handleToggleCart = () => {
     dispatch({
       type: "TOGGLE_CART",
-      showCart: !showCart
-    }); 
-  }
+      showCart: !showCart,
+    });
+  };
   return (
     <div className="flex flex-col bg-cardOverlay backdrop-blur-sm items-start justify-start gap-16 w-screen h-screen  overflow-y-hidden  z-50 overflow-hidden ">
       <motion.div className="flex items-center justify-between w-screen h-24  px-10">
@@ -34,9 +34,13 @@ const MobileNav = ({
           onClick={handleToggleCart}
         >
           <MdShoppingBasket className="text-4xl cursor-pointer" />
-          <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-cartNumBg flex items-center justify-center">
-            <p className="text-sm text-white font-semibold">0</p>
-          </div>
+          {cartItems && (
+            <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-cartNumBg flex items-center justify-center">
+              <p className="text-sm text-white font-semibold">
+                {cartItems.length}
+              </p>
+            </div>
+          )}
         </motion.div>
         <motion.div
           whileTap={{ scale: 0.9 }}
@@ -66,12 +70,15 @@ const MobileNav = ({
         </p>
       </div>
 
-      <Link to={'/'} onClick = {() => setIsOpen(!isOpen)} className="flex items-center  justify-center w-full">
+      <Link
+        to={"/"}
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center  justify-center w-full"
+      >
         <motion.div
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.1 }}
           className="flex items-center gap-2 cursor-pointer"
-          
         >
           <img src={Logo} alt="Logo" className="w-16 object-cover" />
           <p className="text-headingColor text-3xl font-bold">Bentilzone</p>
