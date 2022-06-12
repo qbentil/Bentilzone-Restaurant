@@ -7,15 +7,17 @@ import { ToastContainer } from "react-toastify";
 import { AnimatePresence } from "framer-motion";
 import { useStateValue } from "./context/StateProvider";
 import { useEffect } from "react";
-import { fetchFoodData, fetchUserCartData } from "./utils/functions";
+import { calculateCartTotal, fetchFoodData, fetchUserCartData } from "./utils/functions";
 function App() {
-  const [{ showCart, user }, dispatch] = useStateValue();
+  const [{ showCart, user, foodItems, cartItems }, dispatch] = useStateValue();
 
 
   useEffect(() => {
     fetchFoodData(dispatch);
     user && fetchUserCartData(user, dispatch);
+    calculateCartTotal(cartItems, foodItems, dispatch);
   }, []);
+
   return (
     <AnimatePresence exitBeforeEnter>
       <ToastContainer />

@@ -32,7 +32,7 @@ const CartItem = ({ item }: { item: cartItem }) => {
         <motion.div
           className=""
           whileTap={{ scale: 0.75 }}
-          onClick={qty > 1 ? () => updateCartItemQty(cartItems, item, dispatch, -1) : () => {}}
+          onClick={qty > 1 ? () => updateCartItemQty(cartItems, foodItems, item, dispatch, -1) : () => {}}
         >
           <BiMinus className="text-gray-50" />
         </motion.div>
@@ -42,7 +42,7 @@ const CartItem = ({ item }: { item: cartItem }) => {
         <motion.div
           className=""
           whileTap={{ scale: 0.75 }}
-          onClick={() => updateCartItemQty(cartItems, item, dispatch, 1)}
+          onClick={() => updateCartItemQty(cartItems, foodItems, item, dispatch, 1)}
         >
           <BiPlus className="text-gray-50" />
         </motion.div>
@@ -51,7 +51,7 @@ const CartItem = ({ item }: { item: cartItem }) => {
       <motion.div
         whileTap={{ scale: 0.75 }}
         className="text-sm text-gray-50 w-6 h-6 rounded-lg bg-cartNumBg flex items-center justify-center"
-        onClick={() => deleteCartItem(cartItems, item, dispatch)}
+        onClick={() => deleteCartItem(cartItems, foodItems, item, dispatch)}
       >
         <MdDelete />
       </motion.div>

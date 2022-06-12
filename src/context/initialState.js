@@ -6,5 +6,6 @@ export const initialState = {
     user: sessionUser,
     foodItems: null,
     showCart: false,
-    cartItems: []
+    cartItems: [],
+    cartTotal: 0,
 }

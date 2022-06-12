@@ -1,10 +1,8 @@
 import { FoodItem } from "../../../types";
-import { MdAddShoppingCart, MdShoppingBasket } from "react-icons/md";
+import { MdAddShoppingCart } from "react-icons/md";
 import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
-import { toast } from "react-toastify";
-import { cartItem as cartItemType } from "../../../types";
-import { firebaseAddToCart } from "../../Firebase";
+import { addToCart } from "../../utils/functions";
 export const SingleFoodItem = ({
   item,
   col,
@@ -13,29 +11,8 @@ export const SingleFoodItem = ({
   col?: boolean;
 }) => {
   const { id, title, price, calories, imageURL, description } = item;
-  const [{user, cartItems}, dispatch] = useStateValue();
-  const addToCart = async (fid: number) => {
-    if(!user)
-    {
-      toast.error("Please login to add items to cart", {icon: <MdShoppingBasket className = "text-2xl text-cartNumBg" />, toastId: "unauthorizedAddToCart"});
-    }else{
-      if(cartItems.some( (item:cartItemType) => item['fid'] === fid )){
-        toast.error("Item already in cart", {icon: <MdShoppingBasket className = "text-2xl text-cartNumBg" />, toastId: "itemAlreadyInCart"});
-      }else{
-        const data:cartItemType = {
-          id: Date.now(),
-          fid: fid,
-          uid: user.uid,
-          qty: 1
-        }
-        dispatch({
-          type: "SET_CARTITEMS",
-          cartItems: [...cartItems, data],
-        });
-        await firebaseAddToCart(data);
-      }
-    }
-  };
+  const [{user, cartItems, foodItems}, dispatch] = useStateValue();
+
   return (
     <motion.div
       whileTap={{ rotate: [0, -1, 1, -1, 0] }}
@@ -57,7 +34,7 @@ export const SingleFoodItem = ({
           whileTap={{ scale: 1.1 }}
           whileHover={{ scale: 1.2 }}
           className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer"
-          onClick={() => addToCart(id)}
+          onClick={() => addToCart(cartItems, foodItems, user, id, dispatch)}
         >
           <MdAddShoppingCart className="text-white md:text-xl" />
         </motion.div>
