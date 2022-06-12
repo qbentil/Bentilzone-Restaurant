@@ -12,7 +12,7 @@ import { getAuth } from "firebase/auth";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
-
+import { toast } from "react-toastify";
 const Header = () => {
   const navigate = useNavigate();
   const firebaseAuth = getAuth(app);
@@ -21,13 +21,18 @@ const Header = () => {
   const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
   const logout = async () => {
     if (user) {
-      await firebaseAuth.signOut();
+      await firebaseAuth.signOut()
       dispatch({
         type: "SET_USER",
         user: null,
       });
+      dispatch({
+        type: "SET_CARTITEMS",
+        cartItems: [],
+      });
       localStorage.setItem("user", "undefined");
-      navigate("/login");
+      navigate("/");
+      toast.success("Logout successful, Come back soon🥰", { autoClose: 2000 });
     } else {
       console.log("You are not logged in");
     }
