@@ -3,7 +3,7 @@ import { BiMinus, BiPlus } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { motion } from "framer-motion";
 import { cartItem } from "../../../types";
-import { getFoodyById, updateCartItemQty } from "../../utils/functions";
+import { deleteCartItem, getFoodyById, updateCartItemQty } from "../../utils/functions";
 import { useStateValue } from "../../context/StateProvider";
 
 const CartItem = ({ item }: { item: cartItem }) => {
@@ -51,6 +51,7 @@ const CartItem = ({ item }: { item: cartItem }) => {
       <motion.div
         whileTap={{ scale: 0.75 }}
         className="text-sm text-gray-50 w-6 h-6 rounded-lg bg-cartNumBg flex items-center justify-center"
+        onClick={() => deleteCartItem(cartItems, item, dispatch)}
       >
         <MdDelete />
       </motion.div>
