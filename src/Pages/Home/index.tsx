@@ -1,7 +1,4 @@
-import { FruitsSection, ShowcaseBanner, MenuSection } from "../../components"
-
-
-
+import { FruitsSection, MenuSection, ShowcaseBanner, } from "../../components"
 
 const Home = () => {
   return (
@@ -9,6 +6,7 @@ const Home = () => {
       <ShowcaseBanner />
       <FruitsSection />
       <MenuSection />
+
     </div>
 
   )

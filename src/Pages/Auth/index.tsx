@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
 import { AUTHPROVIDER } from "../../Firebase";
 import { MdOutlineNotificationsActive } from "react-icons/md";
+import { fetchUserCartData } from "../../utils/functions";
 
 const ProviderAuth = () => {
   const GOOGLE_PROVIDER = new GoogleAuthProvider();
@@ -36,6 +37,7 @@ const ProviderAuth = () => {
             type: "SET_USER",
             user: user,
           });
+          fetchUserCartData(user, dispatch);
           localStorage.setItem("user", JSON.stringify(user));
           navigate("/");
         })

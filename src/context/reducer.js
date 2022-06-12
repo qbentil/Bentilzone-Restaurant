@@ -1,12 +1,14 @@
 export const actionTypes = {
     SET_USER: 'SET_USER',
     SET_FOOD_ITEMS: 'SET_FOOD_ITEMS',
-    // SET_ORDERS: 'SET_ORDERS',
-    // SET_PRODUCTS: 'SET_PRODUCTS',
-    // SET_CART: 'SET_CART',
+    TOGGLE_CART: 'TOGGLE_CART',
+    SET_CARTITEMS: 'SET_CARTITEMS',
+    SET_CART_TOTAL: 'SET_CART_TOTAL',
+
 }
 
 const reducer = (state, action) => {
+    // console.log(action)
     switch (action.type) {
         case actionTypes.SET_USER:
             return {
@@ -18,7 +20,21 @@ const reducer = (state, action) => {
                 ...state,
                 foodItems: action.foodItems,
             };
-
+        case actionTypes.TOGGLE_CART:
+            return {
+                ...state,
+                showCart: action.showCart,
+            };
+        case actionTypes.SET_CARTITEMS:
+            return {
+                ...state,
+                cartItems: action.cartItems,
+            };
+        case actionTypes.SET_CART_TOTAL:
+            return {
+                ...state,
+                cartTotal: action.cartTotal,
+            };
             default:
                 return state;
     }

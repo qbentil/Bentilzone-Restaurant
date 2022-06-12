@@ -2,8 +2,16 @@
 
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
+import { useStateValue } from "../../context/StateProvider";
 
 const Navigations = ({ direction }: { direction?: string }) => {
+  const [{ showCart, cartItems }, dispatch] = useStateValue();
+  const handleToggleCart = () => {
+    dispatch({
+      type: "TOGGLE_CART",
+      showCart: true,
+    });
+  };
   return (
     <div className="flex items-center gap-8">
       <motion.ul
@@ -48,11 +56,16 @@ const Navigations = ({ direction }: { direction?: string }) => {
         whileTap={{ scale: 0.9 }}
         whileHover={{ scale: 1.1 }}
         className="relative flex items-center justify-center text-textColor"
+        onClick={handleToggleCart}
       >
         <MdShoppingBasket className="text-2xl cursor-pointer" />
-        <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-          <p className="text-sm text-white font-semibold">0</p>
-        </div>
+        {cartItems && (
+          <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center cursor-pointer">
+            <p className="text-sm text-white font-semibold">
+              {cartItems.length}
+            </p>
+          </div>
+        )}
       </motion.div>
     </div>
   );
