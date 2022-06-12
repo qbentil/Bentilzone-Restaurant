@@ -1,5 +1,5 @@
 import { app, firestore, storage } from "../firebase.config";
-import { collection, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import {
   deleteObject,
@@ -10,6 +10,7 @@ import {
 
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { toast } from "react-toastify";
+import { shuffleItems } from "../utils/functions";
 
 export const firebaseUploadImage = (
   imageFile,
@@ -111,7 +112,7 @@ export const firebaseFetchFoodItems = async () => {
     query(collection(firestore, "Food"), orderBy("id", "desc"))
   );
 
-  return shuffle(items.docs.map((doc) => doc.data()));
+  return shuffleItems(items.docs.map((doc) => doc.data()));
 }
 
 
@@ -123,34 +124,24 @@ export const firebaseAddToCart = async (data) => {
 };
 
 
+// Fetch All Cart Items  from Firestore
 export const firebaseFetchAllCartItems = async () => {
   const items = await getDocs(
     query(collection(firestore, "CartItems"), orderBy("id", "desc"))
   );
 
-  return shuffle(items.docs.map((doc) => doc.data()));
+  return shuffleItems(items.docs.map((doc) => doc.data()));
 }
 
+// Update Cart Items
 export const firebaseUpdateCartItem = async (data) => {
   await setDoc(doc(firestore, "CartItems", `${data.id}`), data, {
     merge: true,
   });
 }
-const  shuffle = (array) => {
-  
-  let currentIndex = array.length,  randomIndex;
 
-  // While there remain elements to shuffle.
-  while (currentIndex !== 0) {
-
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
-
-  return array;
+//  Delete Cart from Firestore
+export const firebaseDeleteCartItem = async (item) => {
+  await deleteDoc(doc(firestore, "CartItems", `${item.id}`));
 }
+
