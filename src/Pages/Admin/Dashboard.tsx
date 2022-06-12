@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
+import { fetchFoodData } from "../../utils/functions";
 
 const Dashboard = () => {
   const [title, setTitle] = useState("");
@@ -65,7 +66,7 @@ const Dashboard = () => {
           .then(() => {
             clearForm();
             setLoading(false);
-            fetchData();
+            fetchFoodData(dispatch);
           })
           .catch((error) => {
             console.log(error);
@@ -96,14 +97,7 @@ const Dashboard = () => {
     return value;
   };
 
-  const fetchData = async () => {
-    await firebaseFetchFoodItems().then((data) => {
-      dispatch({
-        type: "SET_FOOD_ITEMS",
-        foodItems: data,
-      });
-    });
-  };
+
 
   return (
     <div className="w-full min-h-[80vh] flex items-center justify-center mt-5">
