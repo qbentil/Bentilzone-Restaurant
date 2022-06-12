@@ -1,4 +1,4 @@
-import { FruitsSection, ShowcaseBanner } from "../../components"
+import { FruitsSection, ShowcaseBanner, MenuSection } from "../../components"
 
 
 
@@ -8,6 +8,7 @@ const Home = () => {
     <div className='flex w-full h-auto flex-col items-center justify-center'>
       <ShowcaseBanner />
       <FruitsSection />
+      <MenuSection />
     </div>
 
   )

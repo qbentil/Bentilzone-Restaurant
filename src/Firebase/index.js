@@ -1,15 +1,15 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { app, firestore, storage } from "../firebase.config";
 import { collection, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import {
+  deleteObject,
   getDownloadURL,
   ref,
   uploadBytesResumable,
-  deleteObject,
 } from "firebase/storage";
+
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { toast } from "react-toastify";
-
-import { app, firestore, storage } from "../firebase.config";
 
 export const firebaseUploadImage = (
   imageFile,
@@ -111,5 +111,24 @@ export const firebaseFetchFoodItems = async () => {
     query(collection(firestore, "Food"), orderBy("id", "desc"))
   );
 
-  return items.docs.map((doc) => doc.data())
+  return shuffle(items.docs.map((doc) => doc.data()));
+}
+
+const  shuffle = (array) => {
+  
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex !== 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
 }

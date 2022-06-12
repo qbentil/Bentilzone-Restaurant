@@ -4,7 +4,8 @@ import CheffI from "../../img/cheff.png";
 import LogoI from "../../img/chef1.png";
 import BikeDeliveryI from "../../img/delivery.png";
 import HeroBgI from "../../img/hero-bg.png";
-
+import EmptyCartI from "../../img/emptyCart.svg";
+import NotFoundI from "../../img/NotFound.svg";
 // Showcase Banner Static Assets
 import IcreamI from "../../img/i1.png";
 import StrawberryI from "../../img/f5.png";
@@ -24,3 +25,5 @@ export const Icecream = IcreamI
 export const Strawberry = StrawberryI
 export const Chicken = ChickenI
 export const Fish = FishI
+export const EmptyCartImg = EmptyCartI
+export const NotFoundImg = NotFoundI
