@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 const Footer = () => {
   return (
     <footer className="p-4 bg-primary sm:p-6 w-full">
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center md:justify-start items-center">
         <div className="mb-3 md:mb-0">
           <Link to="/" className="flex gap-8 items-center">
             <motion.img
@@ -33,13 +33,13 @@ const Footer = () => {
         <span className="text-sm text-gray-500 text-center dark:text-gray-400">
           © 2022 Bentilzone™. All Rights Reserved.
         </span>
-        <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
+        <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0 md:text-xl">
           <motion.a
             whileTap={{ scale: 1.1 }}
             target={"_blank"}
             rel="noreferrer"
             href="https://qbentil.com"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            className="text-textColor h-10 w-10 bg-primary rounded-full flex items-center justify-center"
           >
             <BsDribbble />
           </motion.a>
@@ -48,7 +48,7 @@ const Footer = () => {
             target={"_blank"}
             rel="noreferrer"
             href="https://github.com/qbentil"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            className="text-textColor h-10 w-10 bg-primary rounded-full flex items-center justify-center"
           >
             <BsGithub />
           </motion.a>
@@ -57,7 +57,7 @@ const Footer = () => {
             target={"_blank"}
             rel="noreferrer"
             href="https://linkedin.com/in/shadrack-bentil-410422199"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            className="text-textColor h-10 w-10 bg-primary rounded-full flex items-center justify-center"
           >
             <BsLinkedin />
           </motion.a>
@@ -66,7 +66,7 @@ const Footer = () => {
             target={"_blank"}
             rel="noreferrer"
             href="https://twitter.com/themanbentil"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            className="text-textColor h-10 w-10 bg-primary rounded-full flex items-center justify-center"
           >
             <BsTwitter />
           </motion.a>
@@ -75,7 +75,7 @@ const Footer = () => {
             target={"_blank"}
             rel="noreferrer"
             href="https://instagram.com/qbentil"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            className="text-textColor h-10 w-10 bg-primary rounded-full flex items-center justify-center"
           >
             <BsInstagram />
           </motion.a>
@@ -84,7 +84,7 @@ const Footer = () => {
             target={"_blank"}
             rel="noreferrer"
             href="https://facebook.com/qbentil"
-            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            className="text-textColor h-10 w-10 bg-primary rounded-full flex items-center justify-center"
           >
             <BsFacebook />
           </motion.a>
