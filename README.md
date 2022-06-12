@@ -7,7 +7,9 @@
 - Redux
 - TailwindCSS
 - Firebase
-
+## Live Demo 
+<a href = "https://bzone-restaurant.netlify.app" >DEMO HERE!<a/>
+  
 ## UI Desktop View
 ![image](https://user-images.githubusercontent.com/55560024/173251550-db16bf1d-8fa1-4af0-be5d-c447b1cca69b.png)
 ![image](https://user-images.githubusercontent.com/55560024/173251554-27cfaea6-697a-44b2-94a7-2cb27d4d4bcf.png)
