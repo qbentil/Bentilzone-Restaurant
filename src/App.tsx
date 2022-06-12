@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { AnimatePresence } from "framer-motion";
 import { useStateValue } from "./context/StateProvider";
 import { useEffect } from "react";
-import { calculateCartTotal, fetchFoodData, fetchUserCartData } from "./utils/functions";
+import { calculateCartTotal, fetchFoodData, fetchUserCartData, hideCart } from "./utils/functions";
 function App() {
   const [{ showCart, user, foodItems, cartItems }, dispatch] = useStateValue();
 
@@ -15,9 +15,11 @@ function App() {
   useEffect(() => {
     fetchFoodData(dispatch);
     user && fetchUserCartData(user, dispatch);
-    calculateCartTotal(cartItems, foodItems, dispatch);
   }, []);
 
+  useEffect(() => {
+    foodItems && cartItems.length > 0 && calculateCartTotal(cartItems, foodItems, dispatch) 
+  }, [cartItems, foodItems, dispatch]);
   return (
     <AnimatePresence exitBeforeEnter>
       <ToastContainer />
@@ -26,7 +28,7 @@ function App() {
           showCart && <Cart />
         }
         <Header />
-        <main className="mt-16 md:mt-16 px-3 md:px-8 md:py-6 py-4 w-full h-auto">
+        <main className="mt-16 md:mt-16 px-3 md:px-8 md:py-6 py-4 w-full h-auto" onClick={() => {}}>
           {/* Routes */}
           <Routes>
             <Route path="/*" element={<Home />} />

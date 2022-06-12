@@ -14,7 +14,13 @@ const Cart = () => {
       className={`w-full h-screen md:w-[350px] bg-white md:backdrop-blur-sm flex flex-col z-[101] drop-shadow-xl fixed top-0 right-0`}
     >
       <CarttHeader />
-      {cartItems && cartItems.length > 0 ? <CartBody /> : <EmptyCart />}
+      {cartItems && cartItems.length > 0 ? (
+        <CartBody />
+      ) : (
+        <div className="h-full w-full flex-1 flex items-center justify-center">
+          <EmptyCart />
+        </div>
+      )}
 
       {!cartItems && <NotFound text={"Cart Items not available"} />}
     </motion.div>
