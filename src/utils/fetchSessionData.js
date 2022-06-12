@@ -7,3 +7,11 @@ export const fetchSessionUser = () => {
     return user;
   // return null
 };
+export const fetchSessionCart = () => {
+  const cartInfo =
+    localStorage.getItem("cartItems") !== "undefined"
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : localStorage.clear();
+
+    return cartInfo ? cartInfo : [];
+};
