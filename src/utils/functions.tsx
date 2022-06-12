@@ -7,6 +7,7 @@ import {
   firebaseFetchAllCartItems,
   firebaseFetchFoodItems,
   firebaseUpdateCartItem,
+  firebaseEmptyUserCart,
 } from "../Firebase";
 
 export const addToCart = async (cartItems:cartItem[], foodItems:FoodItem[], user:any, fid: number, dispatch:any) => {
@@ -167,6 +168,32 @@ export const calculateCartTotal = (cartItems: cartItem[], foodItems: FoodItem[],
   });
 }
 
+
+// Empty Cart 
+export const emptyCart = async (cartItems:cartItem[],foodItems: FoodItem[], dispatch:any) => {
+    if(cartItems.length > 0)
+    {
+      dispatch({
+        type: "SET_CARTITEMS",
+        cartItems: [],
+      });
+      calculateCartTotal(cartItems, foodItems, dispatch);
+      await firebaseEmptyUserCart(cartItems).then(() => {}).catch((e) => {
+        console.log(e);
+      })
+    }else{
+      toast.warn("Cart is already empty")
+    }  
+}
+
+// Hide Cart
+export const hideCart = (dispatch:any) => {
+    dispatch({
+      type: "TOGGLE_CART",
+      showCart: !true,
+    });
+}
+
 export const shuffleItems = (items: any) => {
   let currentIndex = items.length,
     randomIndex;
@@ -186,3 +213,4 @@ export const shuffleItems = (items: any) => {
 
   return items;
 };
+

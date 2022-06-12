@@ -118,7 +118,7 @@ export const firebaseFetchFoodItems = async () => {
 
 //  cart operation    
 export const firebaseAddToCart = async (data) => {
-  await setDoc(doc(firestore, "CartItems", `${Date.now()}`), data, {
+  await setDoc(doc(firestore, "CartItems", `${data.id}`), data, {
     merge: true,
   });
 };
@@ -143,5 +143,17 @@ export const firebaseUpdateCartItem = async (data) => {
 //  Delete Cart from Firestore
 export const firebaseDeleteCartItem = async (item) => {
   await deleteDoc(doc(firestore, "CartItems", `${item.id}`));
+}
+
+//  Delete Cart from Firestore
+export const firebaseEmptyCart = async () => {
+  await deleteDoc(doc(firestore, "CartItems"));
+}
+
+//  Empty user cart from firestore
+export const firebaseEmptyUserCart = async (cartItems) => {
+  cartItems.forEach((item) => {
+     firebaseDeleteCartItem(item);
+  })
 }
 
