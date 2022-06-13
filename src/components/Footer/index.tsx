@@ -14,19 +14,19 @@ const Footer = () => {
   return (
     <footer className="p-4 bg-primary sm:p-6 w-full">
       <div className="flex justify-center md:justify-start items-center">
-        <div className="mb-3 md:mb-0">
+        <motion.div  whileHover={{ rotate: [0, -10, 10, -10, 0] }} className="mb-3 md:mb-0">
           <Link to="/" className="flex gap-8 items-center">
             <motion.img
               whileHover={{ rotate: [0, -10, 10, -10, 0] }}
               src={Logo}
-              className="w-12 md:w-36 object-contain"
+              className="w-10 md:w-36 object-contain"
               alt="Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-headingColor">
               Bentilzone
             </span>
           </Link>
-        </div>
+        </motion.div>
       </div>
       <hr className="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div className="flex flex-col items-center justify-center md:flex-row md:justify-between">
