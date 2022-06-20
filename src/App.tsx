@@ -9,7 +9,7 @@ import { useStateValue } from "./context/StateProvider";
 import { useEffect } from "react";
 import { calculateCartTotal, fetchFoodData, fetchUserCartData, hideCart } from "./utils/functions";
 function App() {
-  const [{ showCart, user, foodItems, cartItems }, dispatch] = useStateValue();
+  const [{ showCart, user, foodItems, cartItems, adminMode }, dispatch] = useStateValue();
 
 
   useEffect(() => {
@@ -27,8 +27,10 @@ function App() {
         {
           showCart && <Cart />
         }
-        <Header />
-        <main className="mt-16 md:mt-16 px-3 md:px-8 md:py-6 py-4 w-full h-auto" onClick={() => {}}>
+       {
+          !adminMode && <Header />
+       }
+        <main className={`${!adminMode && 'mt-16 md:mt-16 px-3 md:px-8 md:py-6 py-4'} w-full h-auto`} onClick={() => {}}>
           {/* Routes */}
           <Routes>
             <Route path="/*" element={<Home />} />
@@ -37,7 +39,9 @@ function App() {
             <Route path="/admin" element={<Admin />} />
           </Routes>
 
-          <Footer />
+          {
+            !adminMode && <Footer />
+          }
         </main>
       </div>
     </AnimatePresence>
