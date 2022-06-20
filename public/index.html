@@ -9,10 +9,7 @@
       name="description"
       content="Bentilzone Restaurant Demo App build with react"
     />
-    <meta
-      name="author"
-      content="Shadrack Bentil"
-    />
+    <meta name="author" content="Shadrack Bentil" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -28,6 +25,12 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"
+    />
+
     <title>Bentilzone Restaurant</title>
   </head>
   <body>
@@ -43,5 +46,16 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#dataTable").DataTable();
+      });
+    </script>
   </body>
 </html>
