@@ -157,3 +157,7 @@ export const firebaseEmptyUserCart = async (cartItems) => {
   })
 }
 
+// Logout user
+export const firebaseLogout = async () => {
+  await getAuth(app).signOut();
+}
