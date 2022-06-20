@@ -15,3 +15,13 @@ export const fetchSessionCart = () => {
 
     return cartInfo ? cartInfo : [];
 };
+
+// session usermode
+export const fetchSessionUserMode = () => {
+  const adminMode =
+    localStorage.getItem("userMode") !== "undefined"
+      ? JSON.parse(localStorage.getItem("adminMode"))
+      : localStorage.clear();
+
+    return adminMode ? adminMode : false;
+}
