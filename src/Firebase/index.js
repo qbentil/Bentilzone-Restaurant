@@ -161,3 +161,11 @@ export const firebaseEmptyUserCart = async (cartItems) => {
 export const firebaseLogout = async () => {
   await getAuth(app).signOut();
 }
+
+// ADMIN USER MANAGEMENT
+
+// fetch all users from firebase auth
+export const firebaseFetchAllUsers = async () => {
+  const users = await getAuth(app).getUserByEmail("bentilshadrack72@gmail.com");
+  return users;
+}
