@@ -1,11 +1,15 @@
 import { AiFillDashboard } from "react-icons/ai";
 import { FiUsers } from "react-icons/fi";
-import { MdAddModerator, MdOutlineFavoriteBorder, MdRestaurantMenu } from "react-icons/md";
+import {
+  MdAddModerator,
+  MdOutlineFavoriteBorder,
+  MdRestaurantMenu,
+} from "react-icons/md";
+import { motion } from "framer-motion";
 import { FaCogs } from "react-icons/fa";
 import AddFood from "./AddFood";
 import Dashboard from "./Dashboard";
 import Users from "./Users";
-
 
 const SidenavMenu = ({
   activePage,
@@ -16,7 +20,12 @@ const SidenavMenu = ({
   setActivePage: any;
   setPageContent: any;
 }) => (
-  <nav className="space-y-2 w-full ">
+  <motion.nav
+    initial={{ opacity: 0, x: 200 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: 200 }}
+    className="space-y-2 w-full "
+  >
     <NavItem
       activePage={activePage}
       svgIcon={<AiFillDashboard />}
@@ -71,7 +80,7 @@ const SidenavMenu = ({
         <div className="w-full flex tems-center justify-center">Settings</div>
       }
     />
-  </nav>
+  </motion.nav>
 );
 
 const NavItem = ({
@@ -94,7 +103,8 @@ const NavItem = ({
     setPageContent(pageContent);
   };
   return (
-    <div
+    <motion.div
+      whileTap={{ scale: 1.1 }}
       onClick={handleClick}
       className={`flex items-center no-underline text-orange-50 hover:text-orange-100 p-3 rounded-md cursor-pointer hover:bg-orange-700 ${
         activePage === title ? "bg-orange-700" : ""
@@ -102,7 +112,7 @@ const NavItem = ({
     >
       <p className="font-bold text-xl">{svgIcon}</p>
       <div className="font-bold pl-3">{title}</div>
-    </div>
+    </motion.div>
   );
 };
 export default SidenavMenu;
