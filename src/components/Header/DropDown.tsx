@@ -1,9 +1,14 @@
 import { motion } from "framer-motion";
 import { MdLogout } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useStateValue } from "../../context/StateProvider";
+import { logout, ToggleAdminMode } from "../../utils/functions";
 
-const DropDown = ({ user, action }: { user: any; action: any }) => {
+const DropDown = ({ user }: { user: any;}) => {
+  const navigate = useNavigate();
+  const [{adminMode}, dispatch]  = useStateValue();
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.6 }}
@@ -18,6 +23,7 @@ const DropDown = ({ user, action }: { user: any; action: any }) => {
         <Link
         className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor"
         to={"/admin"}
+        onClick={() => ToggleAdminMode(dispatch, true)}
         >
           Administrator
           <RiAdminLine />
@@ -25,7 +31,7 @@ const DropDown = ({ user, action }: { user: any; action: any }) => {
       )}
       <p
         className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor"
-        onClick={action}
+        onClick={() => logout(user, dispatch, navigate)}
       >
         Logout
         <MdLogout />

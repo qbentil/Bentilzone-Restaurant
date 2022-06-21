@@ -1,5 +1,5 @@
 import { Avatar, Logo } from "../Assets";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import DropDown from "./DropDown";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
@@ -7,36 +7,33 @@ import LoginAction from "./LoginAction";
 import MobileNav from "./mobile-nav";
 import Navigations from "./Navigations";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { app } from "../../firebase.config";
-import { getAuth } from "firebase/auth";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
-import { toast } from "react-toastify";
 const Header = () => {
-  const navigate = useNavigate();
-  const firebaseAuth = getAuth(app);
+  // 
+  // const firebaseAuth = getAuth(app);
   const [{ user }, dispatch] = useStateValue();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
-  const logout = async () => {
-    if (user) {
-      await firebaseAuth.signOut()
-      dispatch({
-        type: "SET_USER",
-        user: null,
-      });
-      dispatch({
-        type: "SET_CARTITEMS",
-        cartItems: [],
-      });
-      localStorage.setItem("user", "undefined");
-      navigate("/");
-      toast.success("Logout successful, Come back soon🥰", { autoClose: 2000 });
-    } else {
-      console.log("You are not logged in");
-    }
-  };
+  // const logout = async () => {
+  //   if (user) {
+  //     await firebaseAuth.signOut()
+  //     dispatch({
+  //       type: "SET_USER",
+  //       user: null,
+  //     });
+  //     dispatch({
+  //       type: "SET_CARTITEMS",
+  //       cartItems: [],
+  //     });
+  //     localStorage.setItem("user", "undefined");
+  //     navigate("/");
+  //     toast.success("Logout successful, Come back soon🥰", { autoClose: 2000 });
+  //   } else {
+  //     console.log("You are not logged in");
+  //   }
+  // };
 
   return (
     <header className="w-screen fixed z-50 bg-cardOverlay backdrop-blur-md md:p-3 md:px-4 lg:p-6 lg:px-16">
@@ -74,7 +71,7 @@ const Header = () => {
                 <RiArrowDropDownLine />
               </p>
             </motion.div>
-            <DropDown user={user} action={logout} />
+            <DropDown user={user} />
           </div>
         ) : (
           <LoginAction text={"Login"} />
@@ -127,7 +124,7 @@ const Header = () => {
                   <p className="text-headingColor cursor-pointer flex items-center justify-center gap-2">
                     <RiArrowDropDownLine />
                   </p>
-                  {isOpen && <DropDown user={user} action={logout} />}
+                  {isOpen && <DropDown user={user}  />}
                 </motion.div>
               </div>
             ) : (

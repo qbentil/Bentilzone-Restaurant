@@ -4,7 +4,8 @@ export const actionTypes = {
     TOGGLE_CART: 'TOGGLE_CART',
     SET_CARTITEMS: 'SET_CARTITEMS',
     SET_CART_TOTAL: 'SET_CART_TOTAL',
-
+    SET_ADMIN_MODE: 'SET_ADMIN_MODE',
+    SET_USERS: 'SET_USERS',
 }
 
 const reducer = (state, action) => {
@@ -34,6 +35,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 cartTotal: action.cartTotal,
+            };
+        case actionTypes.SET_ADMIN_MODE:
+            return {
+                ...state,
+                adminMode: action.adminMode,
+            };
+        case actionTypes.SET_USERS:
+            return {
+                ...state,
+                users: action.users,
             };
             default:
                 return state;

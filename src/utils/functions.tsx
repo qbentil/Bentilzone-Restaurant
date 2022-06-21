@@ -8,6 +8,8 @@ import {
   firebaseFetchFoodItems,
   firebaseUpdateCartItem,
   firebaseEmptyUserCart,
+  firebaseLogout,
+  firebaseFetchAllUsers,
 } from "../Firebase";
 
 export const addToCart = async (cartItems:cartItem[], foodItems:FoodItem[], user:any, fid: number, dispatch:any) => {
@@ -214,3 +216,50 @@ export const shuffleItems = (items: any) => {
   return items;
 };
 
+export const logout = async (user:any, dispatch:any, navigate:any) => {
+  if (user) {
+    await firebaseLogout().then(() => {
+      dispatch({
+        type: "SET_USER",
+        user: null,
+      });
+      dispatch({
+        type: "SET_CARTITEMS",
+        cartItems: [],
+      });
+      // turn off adminMode
+      dispatch({
+        type: "SET_ADMIN_MODE",
+        adminMode: false,
+      });
+      
+      localStorage.setItem("user", "undefined");
+      localStorage.setItem("adminMode", "undefined");
+      localStorage.removeItem("cartItems");
+      navigate("/");
+    }
+    ).catch((e:any) => {
+      console.log(e);
+    });
+
+  } else {
+    console.log("You are not logged in");
+  }
+};
+
+export const ToggleAdminMode = (dispatch:any, state:boolean) => {
+  dispatch({
+    type: "SET_ADMIN_MODE",
+    adminMode: state,
+  });
+  localStorage.setItem("adminMode", JSON.stringify(state));
+  console.log(state);
+}
+
+export const getAllUser = async () => {
+  return await firebaseFetchAllUsers().then((data:any) => {
+    return data;
+  }).catch((e:any) => {
+    console.log(e);
+  })
+}
