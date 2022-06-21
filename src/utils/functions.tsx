@@ -9,6 +9,7 @@ import {
   firebaseUpdateCartItem,
   firebaseEmptyUserCart,
   firebaseLogout,
+  firebaseFetchAllUsers,
 } from "../Firebase";
 
 export const addToCart = async (cartItems:cartItem[], foodItems:FoodItem[], user:any, fid: number, dispatch:any) => {
@@ -253,4 +254,12 @@ export const ToggleAdminMode = (dispatch:any, state:boolean) => {
   });
   localStorage.setItem("adminMode", JSON.stringify(state));
   console.log(state);
+}
+
+export const getAllUser = async () => {
+  return await firebaseFetchAllUsers().then((data:any) => {
+    return data;
+  }).catch((e:any) => {
+    console.log(e);
+  })
 }
