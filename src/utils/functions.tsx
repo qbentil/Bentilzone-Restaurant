@@ -1,16 +1,16 @@
-import { MdShoppingBasket } from "react-icons/md";
-import { toast } from "react-toastify";
-import { cartItem, FoodItem } from "../../types";
+import { FoodItem, cartItem } from "../../types";
 import {
   firebaseAddToCart,
   firebaseDeleteCartItem,
+  firebaseEmptyUserCart,
   firebaseFetchAllCartItems,
   firebaseFetchFoodItems,
-  firebaseUpdateCartItem,
-  firebaseEmptyUserCart,
   firebaseLogout,
-  firebaseFetchAllUsers,
+  firebaseUpdateCartItem,
 } from "../Firebase";
+
+import { MdShoppingBasket } from "react-icons/md";
+import { toast } from "react-toastify";
 
 export const addToCart = async (cartItems:cartItem[], foodItems:FoodItem[], user:any, fid: number, dispatch:any) => {
   if(!user)
