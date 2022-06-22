@@ -165,7 +165,7 @@ export const firebaseLogout = async () => {
 // ADMIN USER MANAGEMENT
 
 // fetch all users from firebase auth
-export const firebaseFetchAllUsers = async () => {
-  const users = await getAuth(app).getUserByEmail("bentilshadrack72@gmail.com");
-  return users;
-}
+// export const firebaseFetchAllUsers = async () => {
+//   const users = await getAuth(app).getUserByEmail("bentilshadrack72@gmail.com");
+//   return users;
+// }
