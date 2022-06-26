@@ -1,17 +1,16 @@
 import { FoodItem } from "../../../types";
-import { MdAddShoppingCart } from "react-icons/md";
 import { motion } from "framer-motion";
-import { useStateValue } from "../../context/StateProvider";
-import { addToCart } from "../../utils/functions";
+import Action from "./action";
 export const SingleFoodItem = ({
   item,
   col,
+  admin
 }: {
   item: FoodItem;
   col?: boolean;
+  admin?:boolean
 }) => {
   const { id, title, price, calories, imageURL, description } = item;
-  const [{user, cartItems, foodItems}, dispatch] = useStateValue();
 
   return (
     <motion.div
@@ -30,18 +29,12 @@ export const SingleFoodItem = ({
           alt={description}
           src={imageURL}
         />
-        <motion.div
-          whileTap={{ scale: 1.1 }}
-          whileHover={{ scale: 1.2 }}
-          className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer"
-          onClick={() => addToCart(cartItems, foodItems, user, id, dispatch)}
-        >
-          <MdAddShoppingCart className="text-white md:text-xl" />
-        </motion.div>
+      <Action id={id} admin={admin} />
       </div>
       <div className="w-full flex items-end justify-end flex-col">
         <p className="text-textColor font-semi-bold text-lg">{title}</p>
         <p className="mt-1 text-sm text-gray-500">{description} </p>
+      {admin && (<p className="mt-1 text-sm text-gray-500">{calories} calories </p>)}
         <div className="flex items-center justify-between gap-8 ">
           <p className="text-base text-headingColor font-semibold">
             <span className="text-sm text-red-600">₵</span> {price}
