@@ -4,7 +4,6 @@ import { FoodItem } from "../../../types";
 import Loader from "../Loader";
 import { SingleFoodItem } from "../FoodItem";
 import { motion } from "framer-motion";
-import EmptyCart from "../EmptyCart";
 import NotFound from "../NotFound";
 
 const Container = ({scrollOffset, col, items, className }: {scrollOffset:number, col?: boolean; items: FoodItem[], className?:string }) => {
