@@ -10,6 +10,7 @@ import { FaCogs } from "react-icons/fa";
 import AddFood from "./AddFood";
 import Dashboard from "./Dashboard";
 import Users from "./Users";
+import Menu from "./Menu";
 
 const SidenavMenu = ({
   activePage,
@@ -48,9 +49,7 @@ const SidenavMenu = ({
       title="Menu"
       setActivePage={setActivePage}
       setPageContent={setPageContent}
-      pageContent={
-        <div className="w-full flex tems-center justify-center">Menu</div>
-      }
+      pageContent={<Menu />}
     />
     <NavItem
       activePage={activePage}
