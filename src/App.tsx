@@ -1,13 +1,16 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-import { Cart, Footer, Header } from "./components";
+
 import { Admin, Home, Login, Signup } from "./Pages";
+import { Cart, Footer, Header } from "./components";
 import { Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { calculateCartTotal, fetchFoodData, fetchUserCartData } from "./utils/functions";
+
 import { AnimatePresence } from "framer-motion";
-import { useStateValue } from "./context/StateProvider";
+import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
-import { calculateCartTotal, fetchFoodData, fetchUserCartData, hideCart } from "./utils/functions";
+import { useStateValue } from "./context/StateProvider";
+
 function App() {
   const [{ showCart, user, foodItems, cartItems, adminMode }, dispatch] = useStateValue();
 
