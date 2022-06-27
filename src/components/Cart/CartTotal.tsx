@@ -11,7 +11,7 @@ const CartTotal = () => {
           <p className="text-gray-400 text-base md:text-lg "><span className="text-sm text-red-600">₵</span> {cartTotal}</p>
         </div>
         <div className="w-full flex items-center justify-between">
-          <p className="text-gray-400 text-base md:text-lg ">Delivey</p>
+          <p className="text-gray-400 text-base md:text-lg ">Delivery</p>
           <p className="text-gray-400 text-base md:text-lg">-</p>
           <p className="text-gray-400 text-base md:text-lg "><span className="text-sm text-red-600">₵</span> {0.00}</p>
         </div>
