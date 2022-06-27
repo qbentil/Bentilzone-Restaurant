@@ -1,13 +1,14 @@
 import AddFood  from "../../components/Admin/AddFood";
+import Dashboard from "./Dashboard";
 import Home from "../Home";
 import { useStateValue } from "../../context/StateProvider";
-import Dashboard from "./Dashboard";
+import { isAdmin } from "../../utils/functions";
 
 const Admin = () => {
   const [{user}] = useStateValue()
   return (
      <>
-     {user && user?.email==="bentilshadrack72@gmail.com" ? <Dashboard /> : <Home />}
+     {isAdmin(user) ? <Dashboard /> : <Home />}
      </>
   );
 };
