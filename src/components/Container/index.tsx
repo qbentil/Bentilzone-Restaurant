@@ -5,6 +5,8 @@ import Loader from "../Loader";
 import { SingleFoodItem } from "../FoodItem";
 import { motion } from "framer-motion";
 import NotFound from "../NotFound";
+import { isAdmin } from "../../utils/functions";
+import { useStateValue } from "../../context/StateProvider";
 
 const Container = ({scrollOffset, col, items, className }: {scrollOffset:number, col?: boolean; items: FoodItem[], className?:string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,6 +15,7 @@ const Container = ({scrollOffset, col, items, className }: {scrollOffset:number,
       containerRef.current.scrollLeft += scrollOffset
     }
   }, [scrollOffset]);
+  const [{user}, dispatch] = useStateValue();
   return (
     <motion.div
       ref = {containerRef}
@@ -24,7 +27,7 @@ const Container = ({scrollOffset, col, items, className }: {scrollOffset:number,
       }`}
     >
       {items  && items.map((item: FoodItem) => (
-        <SingleFoodItem key={item.id} item = {item} col = {col} />
+        <SingleFoodItem key={item.id} item = {item} col = {col} admin = {isAdmin(user)}/>
       ))}
       {
         !items && (!col ? (<Loader progress = {"Fetching Food Items....."} />): (<NotFound text="Fetching Food Items..."  />))
