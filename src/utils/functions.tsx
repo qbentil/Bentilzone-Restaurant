@@ -256,6 +256,9 @@ export const ToggleAdminMode = (dispatch:any, state:boolean) => {
   console.log(state);
 }
 
+export const isAdmin = (user:any) => {
+  return user?.email === "bentilshadrack72@gmail.com"
+}
 // export const getAllUser = async () => {
 //   return await firebaseFetchAllUsers().then((data:any) => {
 //     return data;
