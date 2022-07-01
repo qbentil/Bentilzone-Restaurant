@@ -40,4 +40,14 @@ export type cartItem = {
 export type cartItems = {
   items: cartItem[]
 }
+
+export type user = {
+  uid: string;
+  email: string;
+  displayName?:string;
+  phoneNumber?: string;
+  providerId: string;
+  photoURL: string;
+
+}
 export type FoodCategories = FoodCategory[];
