@@ -19,13 +19,13 @@ const Login = () => {
         toast.promise(
           EMAILSIGNIN(email, password),
           {
-            pending: "Creating Account...",
-            success: "Signup successful: WELCOME!",
-            error: "Error Creating account, Please try again🤗",
+            pending: "Signing in...",
+            success: "Signin successful: WELCOME!",
+            error: "Error signing account, Please try again🤗",
           }
         ).then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
+          const user = userCredential.user.providerData[0];
           dispatch({
             type: "SET_USER",
             user: user,
