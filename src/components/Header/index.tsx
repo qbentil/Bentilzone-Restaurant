@@ -16,24 +16,7 @@ const Header = () => {
   const [{ user }, dispatch] = useStateValue();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
-  // const logout = async () => {
-  //   if (user) {
-  //     await firebaseAuth.signOut()
-  //     dispatch({
-  //       type: "SET_USER",
-  //       user: null,
-  //     });
-  //     dispatch({
-  //       type: "SET_CARTITEMS",
-  //       cartItems: [],
-  //     });
-  //     localStorage.setItem("user", "undefined");
-  //     navigate("/");
-  //     toast.success("Logout successful, Come back soon🥰", { autoClose: 2000 });
-  //   } else {
-  //     console.log("You are not logged in");
-  //   }
-  // };
+
 
   return (
     <header className="w-screen fixed z-50 bg-cardOverlay backdrop-blur-md md:p-3 md:px-4 lg:p-6 lg:px-16">

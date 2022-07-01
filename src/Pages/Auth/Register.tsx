@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 // import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
-import { EMAILSIGNUP } from "../../Firebase";
+import { EMAILSIGNUP, firebaseAddUser } from "../../Firebase";
 
 // toast.configure()
 
@@ -28,7 +28,8 @@ const Login = () => {
           }
         ).then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
+          const user = userCredential.user.providerData[0];
+          firebaseAddUser(user);
           dispatch({
             type: "SET_USER",
             user: user,
@@ -83,7 +84,7 @@ const Login = () => {
               <div className="flex justify-between items-center mb-6"></div>
 
               <p
-                className="flex items-center justify-center px-7 py-3 bg-gradient-to-br from-orange-400 to-orange-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                className="flex items-center justify-center px-7 py-3 bg-gradient-to-br from-orange-400 to-orange-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-orange-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-orange-800 active:shadow-lg transition duration-150 ease-in-out w-full cursor-pointer"
                 onClick={EmailAuth}
               >
                 Sign Up
