@@ -90,6 +90,8 @@ export const AUTHPROVIDER = async (provider) => {
   const {
     user: { refreshToken, providerData },
   } = await signInWithPopup(firebaseAuth, provider);
+  // add provider data to user
+  await firebaseAddUser(providerData[0]);
   return { refreshToken, providerData };
 };
 
@@ -122,6 +124,7 @@ export const firebaseAddToCart = async (data) => {
     merge: true,
   });
 };
+
 
 
 // Fetch All Cart Items  from Firestore
@@ -164,8 +167,9 @@ export const firebaseLogout = async () => {
 
 // ADMIN USER MANAGEMENT
 
-// fetch all users from firebase auth
-// export const firebaseFetchAllUsers = async () => {
-//   const users = await getAuth(app).getUserByEmail("bentilshadrack72@gmail.com");
-//   return users;
-// }
+// firestore add to users collection
+export const firebaseAddUser = async (data) => {
+  await setDoc(doc(firestore, "Users", `${data.uid}`), data, {
+    merge: true,
+  });
+}
