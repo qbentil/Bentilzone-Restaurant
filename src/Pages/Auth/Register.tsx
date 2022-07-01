@@ -29,7 +29,6 @@ const Login = () => {
         ).then((userCredential) => {
           // Signed in
           const user = userCredential.user.providerData[0];
-          console.log(user)
           firebaseAddUser(user);
           dispatch({
             type: "SET_USER",
