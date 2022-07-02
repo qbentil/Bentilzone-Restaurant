@@ -6,6 +6,7 @@ export const actionTypes = {
     SET_CART_TOTAL: 'SET_CART_TOTAL',
     SET_ADMIN_MODE: 'SET_ADMIN_MODE',
     SET_USERS: 'SET_USERS',
+    UPDATE_USER: 'UPDATE_USER',
 }
 
 const reducer = (state, action) => {
@@ -46,6 +47,11 @@ const reducer = (state, action) => {
                 ...state,
                 users: action.users,
             };
+        case actionTypes.UPDATE_USER:
+            return {
+                ...state,
+                user: action.user
+            }
             default:
                 return state;
     }
