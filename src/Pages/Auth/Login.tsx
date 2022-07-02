@@ -23,9 +23,9 @@ const Login = () => {
             success: "Signin successful: WELCOME!",
             error: "Error signing account, Please try again🤗",
           }
-        ).then((userCredential) => {
+        ).then((userData) => {
           // Signed in
-          const user = userCredential.user.providerData[0];
+          const user = userData[0]; 
           dispatch({
             type: "SET_USER",
             user: user,
