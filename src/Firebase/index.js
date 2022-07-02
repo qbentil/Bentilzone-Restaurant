@@ -92,7 +92,8 @@ export const AUTHPROVIDER = async (provider) => {
   } = await signInWithPopup(firebaseAuth, provider);
   // add provider data to user
   await firebaseAddUser(providerData[0]);
-  return { refreshToken, providerData };
+  let userData = await firebaseGetUser(providerData[0].uid);
+  return { refreshToken, userData };
 };
 
 // Signup with email and password
@@ -173,9 +174,13 @@ export const firebaseLogout = async () => {
 
 // firestore add to users collection
 export const firebaseAddUser = async (data) => {
-  await setDoc(doc(firestore, "Users", `${data.uid}`), data, {
-    merge: true,
-  });
+  // check if user already exists
+  const user = await firebaseGetUser(data.uid);
+  if (user.length === 0) {
+    await setDoc(doc(firestore, "Users", `${data.uid}`), data, {
+      merge: true,
+    });
+  }
 }
 
 // get user
