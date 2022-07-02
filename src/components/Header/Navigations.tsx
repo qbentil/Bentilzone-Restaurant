@@ -1,5 +1,5 @@
 // import React from 'react'
-
+import { Link } from "react-router-dom";
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
@@ -24,7 +24,7 @@ const Navigations = ({ direction }: { direction?: string }) => {
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
         >
-          Home
+          <Link to={'/'}>Home</Link>
         </motion.li>
         <motion.li
           whileHover={{ scale: 1.1 }}
