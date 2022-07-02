@@ -8,6 +8,7 @@ import {
   firebaseGetUser,
   firebaseLogout,
   firebaseUpdateCartItem,
+  firebaseUpdateUser,
 } from "../Firebase";
 
 import { MdShoppingBasket } from "react-icons/md";
@@ -266,6 +267,20 @@ export const getUserData = async (user: any) => {
     return await firebaseGetUser(user.uid);
 }
 
+// update currentUser
+export const updateUserData = async (user: any, dispatch: any, alert:boolean) => {
+  await firebaseUpdateUser(user).then(() => {
+    dispatch({
+      type: "SET_USER",
+      user: user,
+    });
+  }).catch((e:any) => {
+    console.log(e);
+  }).then(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+    alert && toast.success("User data updated successfully");
+  })
+}
 // export const getAllUser = async () => {
 //   return await firebaseFetchAllUsers().then((data:any) => {
 //     return data;
