@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
 import { AUTHPROVIDER } from "../../Firebase";
 import { MdOutlineNotificationsActive } from "react-icons/md";
-import { fetchUserCartData, getUserData } from "../../utils/functions";
+import { fetchUserCartData } from "../../utils/functions";
 
 const ProviderAuth = () => {
   const GOOGLE_PROVIDER = new GoogleAuthProvider();
@@ -30,16 +30,16 @@ const ProviderAuth = () => {
           success: "Signin successful",
           error: "Error Signing in, Please try again🤗",
         })
-        .then(({ refreshToken, providerData }) => {
+        .then(({ refreshToken, userData }) => {
           // Signed in
-          const user = providerData[0];
-          const userData = getUserData(user);
+          const user = userData[0];
+          // const userData = getUserData(user);
           dispatch({
             type: "SET_USER",
             user: user,
           });
-          fetchUserCartData(userData, dispatch);
-          localStorage.setItem("user", JSON.stringify(userData));
+          fetchUserCartData(user, dispatch);
+          localStorage.setItem("user", JSON.stringify(user));
           navigate("/");
         })
         .catch((error) => {
