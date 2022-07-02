@@ -1,7 +1,7 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Admin, Home, Login, Signup } from "./Pages";
+import { Admin, Home, Login, Signup, Profile } from "./Pages";
 import { Cart, Footer, Header } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { calculateCartTotal, fetchFoodData, fetchUserCartData } from "./utils/functions";
@@ -40,6 +40,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
 
           {
