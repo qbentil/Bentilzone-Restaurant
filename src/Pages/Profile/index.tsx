@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
 import { AssetUploader, Loader } from "../../components";
+import { updateUserData } from "../../utils/functions";
+import { firebaseRemoveUploadedImage } from "../../Firebase";
 
 // import { GiTakeMyMoney } from "react-icons/gi";
 
@@ -27,20 +29,41 @@ const UpdateProfile = () => {
   const [photoURL, setPhotoURL] = useState(user.photoURL)
   const [loading, setLoading] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber)
-
+  const [btnText, setBtnText] = useState("Save")
   const [loaderMessage, setLoadermessage] = useState("");
 
-  const deleteImage = () => {
+  const deleteImage = async () => {
     setLoadermessage("Removing Photo......");
-    // firebaseRemoveUploadedImage(image, setImage, setLoading);
+    firebaseRemoveUploadedImage(photoURL, setPhotoURL, setLoading);
+    const data = { ...user, photoURL: null };
+    await updateUserData(data, dispatch, false);
   };
-  const saveChanges = () => {
-    setLoadermessage(`Updating profile ${displayName}.`);
+  const saveChanges = async () => {
+    setBtnText("Saving....");
+    if(displayName.lenth < 0 || phoneNumber.length !== 10)
+    {
+      toast.error("Fill out fields correctly")
+      setBtnText("Save")
+    }else{
+      const data = {
+        ...user,
+        displayName,
+        phoneNumber,
+        photoURL,
+      }
+      await updateUserData(data, dispatch, true);
+      setBtnText("Save");
+    }
 
   };
   const resetForm = () => {
 
   };
+  const updatePhotoUrl = async (newUrl: string) => {
+    setPhotoURL(newUrl);
+    const data = { ...user, photoURL: newUrl };
+     await updateUserData(data, dispatch, false)
+  }
 
   const validateNumber = (value: any) => {
     if (isNaN(value)) {
@@ -109,7 +132,7 @@ const UpdateProfile = () => {
                 </>
               ) : (
                 <AssetUploader
-                  action={setPhotoURL}
+                  action={updatePhotoUrl}
                   progressHandler={setLoadermessage}
                   promise={setLoading}
                 />
@@ -125,7 +148,7 @@ const UpdateProfile = () => {
             className="ml-0 flex justify-center items-center gap-2 flex-row-reverse md:ml-auto w-full md:w-auto border-none outline-none rounded bg-orange-500 px-12 py-2 text-lg text-white"
             onClick={() => saveChanges()}
           >
-            <MdOutlineDataSaverOn /> Save
+            <MdOutlineDataSaverOn /> {btnText}
           </motion.button>
         </div>
       </div>
