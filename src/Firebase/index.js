@@ -16,7 +16,8 @@ export const firebaseUploadImage = (
   imageFile,
   promise,
   progressHandler,
-  action
+  action,
+  to
 ) => {
   promise(true);
   // progressHandler(0)
@@ -25,7 +26,7 @@ export const firebaseUploadImage = (
   });
   const storageRef = ref(
     storage,
-    `Images/Products/${Date.now()}-${imageFile.name}`
+    `Images/${to}/${Date.now()}-${imageFile.name}`
   );
   const uploadPhoto = uploadBytesResumable(storageRef, imageFile);
   uploadPhoto.on(
@@ -60,17 +61,26 @@ export const firebaseRemoveUploadedImage = (
   imageHandler,
   promise
 ) => {
+  const dummy = "https://firebasestorage.googleapis.com/v0/b/bentilzone-restaurant.appspot.com/o/Images"
   promise(true);
   toast.info(`Removing Image.....`, {
     icon: <MdOutlineCloudUpload className="text-blue-600" />,
     autoClose: 1500,
+    toastId: "remove-image",
   });
-  const deleteRef = ref(storage, ImageFile);
-  deleteObject(deleteRef).then(() => {
+  if(ImageFile.includes(dummy))
+  {
+    const deleteRef = ref(storage, ImageFile);
+    deleteObject(deleteRef).then(() => {
+      imageHandler(null);
+      promise(false);
+      toast.success("Photo removed Successfully😊", { autoClose: 2000, toastId: "remove-image" });
+    });
+  }else{
     imageHandler(null);
     promise(false);
-    toast.success("Photo removed Successfully😊", { autoClose: 2000 });
-  });
+    toast.success("Photo removed Successfully😊", { autoClose: 2000, toastId: "remove-image" });
+  }
 };
 export const silentRemoveUploadedImage = (ImageFile) => {
   const deleteRef = ref(storage, ImageFile);
@@ -190,4 +200,11 @@ export const firebaseGetUser = async (uid) => {
   );
   let users = user.docs.map((doc) => doc.data());
   return users.filter((user) => user.uid === uid)
+}
+
+// update user 
+export const firebaseUpdateUser = async (data) => {
+  await setDoc(doc(firestore, "Users", `${data.uid}`), data, {
+    merge: true,
+  });
 }
