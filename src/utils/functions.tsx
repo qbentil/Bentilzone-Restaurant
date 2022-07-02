@@ -1,10 +1,11 @@
-import { FoodItem, cartItem } from "../../types";
+import { FoodItem, cartItem, User } from "../../types";
 import {
   firebaseAddToCart,
   firebaseDeleteCartItem,
   firebaseEmptyUserCart,
   firebaseFetchAllCartItems,
   firebaseFetchFoodItems,
+  firebaseGetUser,
   firebaseLogout,
   firebaseUpdateCartItem,
 } from "../Firebase";
@@ -259,6 +260,12 @@ export const ToggleAdminMode = (dispatch:any, state:boolean) => {
 export const isAdmin = (user:any) => {
   return user?.email === "bentilshadrack72@gmail.com"
 }
+
+// get user 
+export const getUserData = async (user: any) => {
+    return await firebaseGetUser(user.uid);
+}
+
 // export const getAllUser = async () => {
 //   return await firebaseFetchAllUsers().then((data:any) => {
 //     return data;
