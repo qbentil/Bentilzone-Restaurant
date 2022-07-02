@@ -104,7 +104,11 @@ export const EMAILSIGNUP = async (email, password) => {
 //  Signin with email and password
 export const EMAILSIGNIN = async (email, password) => {
   const firebaseAuth = getAuth(app);
-  return signInWithEmailAndPassword(firebaseAuth, email, password)
+  const result = await signInWithEmailAndPassword(firebaseAuth, email, password)
+  let user = result.user.providerData[0];
+  
+
+  return await firebaseGetUser(user.uid)
 };
 
 
@@ -172,4 +176,13 @@ export const firebaseAddUser = async (data) => {
   await setDoc(doc(firestore, "Users", `${data.uid}`), data, {
     merge: true,
   });
+}
+
+// get user
+export const firebaseGetUser = async (uid) => {
+  const user = await getDocs(
+    query(collection(firestore, "Users"))
+  );
+  let users = user.docs.map((doc) => doc.data());
+  return users.filter((user) => user.uid === uid)
 }
