@@ -208,3 +208,8 @@ export const firebaseUpdateUser = async (data) => {
     merge: true,
   });
 }
+
+// delete food
+export const firebaseDeleteFood = async (id) => {
+  await deleteDoc(doc(firestore, "Food", `${id}`));
+}
