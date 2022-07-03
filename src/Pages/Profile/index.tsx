@@ -1,8 +1,7 @@
-import { BiCategory, BiFoodMenu } from "react-icons/bi";
+import {  BiUser } from "react-icons/bi";
+import {  BsPhone } from "react-icons/bs";
 import {
   MdOutlineDataSaverOn,
-  MdOutlineFastfood,
-  MdOutlineProductionQuantityLimits,
   MdDeleteOutline,
 } from "react-icons/md";
 
@@ -13,13 +12,6 @@ import { useStateValue } from "../../context/StateProvider";
 import { AssetUploader, Loader } from "../../components";
 import { updateUserData } from "../../utils/functions";
 import { firebaseRemoveUploadedImage } from "../../Firebase";
-
-// import { GiTakeMyMoney } from "react-icons/gi";
-
-
-
-
-
 
 
 const UpdateProfile = () => {
@@ -56,9 +48,7 @@ const UpdateProfile = () => {
     }
 
   };
-  const resetForm = () => {
 
-  };
   const updatePhotoUrl = async (newUrl: string) => {
     setPhotoURL(newUrl);
     const data = { ...user, photoURL: newUrl };
@@ -79,7 +69,7 @@ const UpdateProfile = () => {
     <div className="w-full h-full flex items-center justify-center">
       <div className="border w-full  md:w-[60%]  flex border-gray-300 items-center rounded-lg p-4 flex-col justify-center gap-4  mt-8 mg:mt-10">
         <div className="w-full py-3 border-b border-gray-300 flex -tems-center gap-2">
-          <MdOutlineFastfood className="text-xl text-gray-600" />
+          <BiUser className="text-xl text-gray-600" />
           <input
             type="text"
             required
@@ -93,12 +83,11 @@ const UpdateProfile = () => {
 
         <div className="w-full flex flex-col md:flex-row items-center gap-3">
           <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdOutlineProductionQuantityLimits className="text-gray-600 text-2xl" />
+            <BsPhone className="text-gray-600 text-2xl" />
             <input
               type="text"
               required
               placeholder="Phone"
-              autoFocus
               className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(validateNumber(e.target.value))}
