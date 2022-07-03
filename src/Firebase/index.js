@@ -16,7 +16,8 @@ export const firebaseUploadImage = (
   imageFile,
   promise,
   progressHandler,
-  action
+  action,
+  to
 ) => {
   promise(true);
   // progressHandler(0)
@@ -25,7 +26,7 @@ export const firebaseUploadImage = (
   });
   const storageRef = ref(
     storage,
-    `Images/Products/${Date.now()}-${imageFile.name}`
+    `Images/${to}/${Date.now()}-${imageFile.name}`
   );
   const uploadPhoto = uploadBytesResumable(storageRef, imageFile);
   uploadPhoto.on(
@@ -60,17 +61,26 @@ export const firebaseRemoveUploadedImage = (
   imageHandler,
   promise
 ) => {
+  const dummy = "https://firebasestorage.googleapis.com/v0/b/bentilzone-restaurant.appspot.com/o/Images"
   promise(true);
   toast.info(`Removing Image.....`, {
     icon: <MdOutlineCloudUpload className="text-blue-600" />,
     autoClose: 1500,
+    toastId: "remove-image",
   });
-  const deleteRef = ref(storage, ImageFile);
-  deleteObject(deleteRef).then(() => {
+  if(ImageFile.includes(dummy))
+  {
+    const deleteRef = ref(storage, ImageFile);
+    deleteObject(deleteRef).then(() => {
+      imageHandler(null);
+      promise(false);
+      toast.success("Photo removed Successfully😊", { autoClose: 2000, toastId: "remove-image" });
+    });
+  }else{
     imageHandler(null);
     promise(false);
-    toast.success("Photo removed Successfully😊", { autoClose: 2000 });
-  });
+    toast.success("Photo removed Successfully😊", { autoClose: 2000, toastId: "remove-image" });
+  }
 };
 export const silentRemoveUploadedImage = (ImageFile) => {
   const deleteRef = ref(storage, ImageFile);
@@ -92,7 +102,8 @@ export const AUTHPROVIDER = async (provider) => {
   } = await signInWithPopup(firebaseAuth, provider);
   // add provider data to user
   await firebaseAddUser(providerData[0]);
-  return { refreshToken, providerData };
+  let userData = await firebaseGetUser(providerData[0].uid);
+  return { refreshToken, userData };
 };
 
 // Signup with email and password
@@ -104,7 +115,11 @@ export const EMAILSIGNUP = async (email, password) => {
 //  Signin with email and password
 export const EMAILSIGNIN = async (email, password) => {
   const firebaseAuth = getAuth(app);
-  return signInWithEmailAndPassword(firebaseAuth, email, password)
+  const result = await signInWithEmailAndPassword(firebaseAuth, email, password)
+  let user = result.user.providerData[0];
+  
+
+  return await firebaseGetUser(user.uid)
 };
 
 
@@ -169,6 +184,26 @@ export const firebaseLogout = async () => {
 
 // firestore add to users collection
 export const firebaseAddUser = async (data) => {
+  // check if user already exists
+  const user = await firebaseGetUser(data.uid);
+  if (user.length === 0) {
+    await setDoc(doc(firestore, "Users", `${data.uid}`), data, {
+      merge: true,
+    });
+  }
+}
+
+// get user
+export const firebaseGetUser = async (uid) => {
+  const user = await getDocs(
+    query(collection(firestore, "Users"))
+  );
+  let users = user.docs.map((doc) => doc.data());
+  return users.filter((user) => user.uid === uid)
+}
+
+// update user 
+export const firebaseUpdateUser = async (data) => {
   await setDoc(doc(firestore, "Users", `${data.uid}`), data, {
     merge: true,
   });

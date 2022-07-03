@@ -41,13 +41,13 @@ export type cartItems = {
   items: cartItem[]
 }
 
-export type user = {
+export type User = {
   uid: string;
-  email: string;
+  email?: string;
   displayName?:string;
   phoneNumber?: string;
   providerId: string;
-  photoURL: string;
+  photoURL?: string;
 
 }
 export type FoodCategories = FoodCategory[];

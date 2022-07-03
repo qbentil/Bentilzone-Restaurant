@@ -47,7 +47,7 @@ const Header = () => {
             >
               <img
                 src={user.photoURL || Avatar}
-                className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
+                className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer object-contain"
                 alt="profile"
               />
               <p className="text-headingColor cursor-pointer flex items-center justify-center gap-2">

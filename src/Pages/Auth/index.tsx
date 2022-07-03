@@ -30,9 +30,10 @@ const ProviderAuth = () => {
           success: "Signin successful",
           error: "Error Signing in, Please try again🤗",
         })
-        .then(({ refreshToken, providerData }) => {
+        .then(({ refreshToken, userData }) => {
           // Signed in
-          const user = providerData[0];
+          const user = userData[0];
+          // const userData = getUserData(user);
           dispatch({
             type: "SET_USER",
             user: user,

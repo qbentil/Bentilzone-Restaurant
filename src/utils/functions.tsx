@@ -1,12 +1,14 @@
-import { FoodItem, cartItem } from "../../types";
+import { FoodItem, cartItem, User } from "../../types";
 import {
   firebaseAddToCart,
   firebaseDeleteCartItem,
   firebaseEmptyUserCart,
   firebaseFetchAllCartItems,
   firebaseFetchFoodItems,
+  firebaseGetUser,
   firebaseLogout,
   firebaseUpdateCartItem,
+  firebaseUpdateUser,
 } from "../Firebase";
 
 import { MdShoppingBasket } from "react-icons/md";
@@ -258,6 +260,26 @@ export const ToggleAdminMode = (dispatch:any, state:boolean) => {
 
 export const isAdmin = (user:any) => {
   return user?.email === "bentilshadrack72@gmail.com"
+}
+
+// get user 
+export const getUserData = async (user: any) => {
+    return await firebaseGetUser(user.uid);
+}
+
+// update currentUser
+export const updateUserData = async (user: any, dispatch: any, alert:boolean) => {
+  await firebaseUpdateUser(user).then(() => {
+    dispatch({
+      type: "SET_USER",
+      user: user,
+    });
+  }).catch((e:any) => {
+    console.log(e);
+  }).then(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+    alert && toast.success("User data updated successfully");
+  })
 }
 // export const getAllUser = async () => {
 //   return await firebaseFetchAllUsers().then((data:any) => {

@@ -1,10 +1,10 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Admin, Home, Login, Signup } from "./Pages";
+import { Admin, Home, Login, Signup, Profile } from "./Pages";
 import { Cart, Footer, Header } from "./components";
 import { Route, Routes } from "react-router-dom";
-import { calculateCartTotal, fetchFoodData, fetchUserCartData } from "./utils/functions";
+import { calculateCartTotal, fetchFoodData, fetchUserCartData, isAdmin } from "./utils/functions";
 
 import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
@@ -31,19 +31,20 @@ function App() {
           showCart && <Cart />
         }
        {
-          !adminMode && <Header />
+          !(adminMode && isAdmin(user)) && <Header />
        }
-        <main className={`${!adminMode && 'mt-16 md:mt-16 px-3 md:px-8 md:py-6 py-4'} w-full h-auto`} onClick={() => {}}>
+        <main className={`${!(adminMode && isAdmin(user)) && 'mt-16 md:mt-16 px-3 md:px-8 md:py-6 py-4'} w-full h-auto`} onClick={() => {}}>
           {/* Routes */}
           <Routes>
             <Route path="/*" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
 
           {
-            !adminMode && <Footer />
+            !(adminMode && isAdmin(user)) && <Footer />
           }
         </main>
       </div>
