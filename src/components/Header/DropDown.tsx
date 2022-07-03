@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { FaUserCog } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
@@ -30,7 +31,7 @@ const DropDown = ({ user }: { user: any;}) => {
         </Link>
       )}
       <Link to={'/profile'} className="px-10 py-2 flex items-center gap-3 bg-slate-100 transition-all duration-100 ease-in-out text-base text-headingColor">
-        Profile
+        Profile <FaUserCog />
       </Link>
       <p
         className="cursor-pointer px-10 py-2 flex items-center gap-3 hover:bg-slate-100 transition-all duration-100 ease-in-out text-base text-textColor"
