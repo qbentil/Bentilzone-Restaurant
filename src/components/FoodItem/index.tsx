@@ -29,7 +29,7 @@ export const SingleFoodItem = ({
           alt={description}
           src={imageURL}
         />
-      <Action id={id} admin={admin} />
+      <Action food={item} admin={admin} />
       </div>
       <div className="w-full flex items-end justify-end flex-col">
         <p className="text-textColor font-semi-bold text-lg">{title}</p>
