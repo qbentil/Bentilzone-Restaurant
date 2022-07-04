@@ -209,6 +209,15 @@ export const firebaseUpdateUser = async (data) => {
   });
 }
 
+// firebase get all users
+export const firebaseGetAllUsers = async () => {
+  const users = await getDocs(
+    query(collection(firestore, "Users"))
+  );
+  let usersData = users.docs.map((doc) => doc.data());
+  return usersData
+}
+
 // delete food
 export const firebaseDeleteFood = async (id) => {
   await deleteDoc(doc(firestore, "Food", `${id}`));
