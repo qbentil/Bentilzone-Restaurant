@@ -1,26 +1,29 @@
 import { MdDeleteForever, MdEmail } from "react-icons/md";
 import { GiShieldDisabled } from "react-icons/gi";
-import { Logo } from "../../Assets";
+import { Avatar } from "../../Assets";
 import { FcGoogle } from "react-icons/fc";
 import {motion} from "framer-motion";
-const User = () => {
+const User = ({item}: {item:any}) => {
   return (
     <div className="max-w-sm h-auto rounded-lg border border-orange-50 bg-orange-600">
     <div className="flex flex-col gap-1 items-center pb-10">
       <motion.img
         whileHover= {{scale:1.1}}
-        className="mb-3 w-24 h-24 rounded-full shadow-lg cursor-pointer"
-        src={Logo}
-        alt="Bonnie"
+        className="mb-3 w-24 h-24 rounded-full shadow-lg cursor-pointer object-contain"
+        src={item?.photoURL || Avatar} 
+        alt="avatar"
       />
       <div className="flex flex-col items-center justify-center">
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-          Bonnie Green
+          {item?.displayName || 'No Name'}
         </h5>
-        <span className="text-sm text-gray-300 ">Visual Designer</span>
+        <span className="text-sm text-gray-300 ">{item?.email}</span>
+        <span className="text-sm text-gray-300 ">{item?.phoneNumber}</span>
       </div>
       <motion.div whileTap={{scale:1.1}} className="gap-2 text-orange-600 text-sm p-1 px-3 bg-primary shadow-lg rounded-lg flex items-center justify-center mt-2 -mb-2">
-        <MdEmail     /> <span>Provider</span>
+        {
+          item?.providerId !== 'google.com' ? <MdEmail /> : <FcGoogle  />
+        } <span>{item.providerId}</span>
       </motion.div>
       <div className="flex mt-4 space-x-3 lg:mt-6">
         <p
