@@ -6,9 +6,7 @@ import User from "./user";
 
 const Users = () => {
   const [{ users }, dispatch] = useStateValue();
-  useEffect(() => {
-    console.log(users)
-  }, [users])
+  // console.log(users.length)
   return (
     <div className="w-full justify-center flex flex-col">
       {/* search bar */}
@@ -26,9 +24,11 @@ const Users = () => {
 
       {/* dasboard statistics and counts */}
       <div className="w-full grid grid-cols-3 gap-1">
-        <User />
-        <User />
-        <User />
+        {
+          users.map((user:any) => (
+            <User key={user.uid} item = {user} />
+          ))
+        }
       </div>
     </div>
   );
