@@ -1,4 +1,4 @@
-import { FoodItem, cartItem, User } from "../../types";
+import { FoodItem, cartItem } from "../../types";
 import {
   firebaseAddToCart,
   firebaseDeleteCartItem,
@@ -10,6 +10,7 @@ import {
   firebaseLogout,
   firebaseUpdateCartItem,
   firebaseUpdateUser,
+  firebaseGetAllUsers,
 } from "../Firebase";
 
 import { MdShoppingBasket } from "react-icons/md";
@@ -309,6 +310,26 @@ export const updateUserData = async (
     });
 };
 
+// get all users
+export const dispatchUsers = async (dispatch: any) => {
+  await firebaseGetAllUsers()
+    .then((users: any) => {
+      dispatch({
+        type: "SET_USERS",
+        users: users,
+      });
+    })
+    .catch((e: any) => {
+      console.log(e);
+    }); 
+}
+export const getAllUser = async() => {
+   await firebaseGetAllUsers().then((users: any) => {
+    return users
+   }).catch((e:any) => {
+    console.log(e)
+   })
+}
 // delete food
 export const deleteFood = async (
   food: FoodItem,
@@ -328,3 +349,4 @@ export const deleteFood = async (
   })
   toast.success("Food deleted successfully");
 };
+
