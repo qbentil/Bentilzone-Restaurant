@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Admin, Home, Login, Signup, Profile } from "./Pages";
 import { Cart, Footer, Header } from "./components";
 import { Route, Routes } from "react-router-dom";
-import { calculateCartTotal, fetchFoodData, fetchUserCartData, isAdmin } from "./utils/functions";
+import { calculateCartTotal, fetchFoodData, fetchUserCartData, isAdmin, dispatchUsers } from "./utils/functions";
 
 import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
@@ -17,6 +17,7 @@ function App() {
 
   useEffect(() => {
     fetchFoodData(dispatch);
+    dispatchUsers(dispatch);
     user && fetchUserCartData(user, dispatch);
   }, []);
 

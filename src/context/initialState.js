@@ -2,7 +2,6 @@ import { fetchSessionUser, fetchSessionUserMode } from "../utils/fetchSessionDat
 
 const sessionUser = fetchSessionUser();
 const sessionUserMode = fetchSessionUserMode();
-
 export const initialState = {
     user: sessionUser,
     foodItems: null,
