@@ -11,6 +11,7 @@ import AddFood from "./AddFood";
 import Dashboard from "./Dashboard";
 import Users from "./Users";
 import Menu from "./Menu";
+import { useStateValue } from "../../context/StateProvider";
 
 const SidenavMenu = ({
   activePage,
@@ -101,6 +102,7 @@ const NavItem = ({
     setActivePage(title);
     setPageContent(pageContent);
   };
+  const [{users, foodItems}, dispatch] = useStateValue()
   return (
     <motion.div
       whileTap={{ scale: 1.1 }}
@@ -110,7 +112,19 @@ const NavItem = ({
       }`}
     >
       <p className="font-bold text-xl">{svgIcon}</p>
-      <div className="font-bold pl-3">{title}</div>
+      <div className="flex items-center justify-center gap-10 font-bold pl-3">{title}
+        {
+          (title === "Menu" || title === "Users") && (
+            <div className=" w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center cursor-pointer">
+            <p className="text-sm text-white font-semibold">
+              {
+                title === "Menu"? foodItems.length:users.length
+              }
+            </p>
+          </div>
+          )
+        }
+      </div>
     </motion.div>
   );
 };

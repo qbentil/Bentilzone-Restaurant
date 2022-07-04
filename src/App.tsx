@@ -19,7 +19,7 @@ function App() {
     fetchFoodData(dispatch);
     dispatchUsers(dispatch);
     user && fetchUserCartData(user, dispatch);
-  }, []);
+  });
 
   useEffect(() => {
     foodItems && cartItems.length > 0 && calculateCartTotal(cartItems, foodItems, dispatch) 
