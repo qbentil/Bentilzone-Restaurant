@@ -15,7 +15,7 @@ const User = ({item}: {item:any}) => {
       />
       <div className="flex flex-col items-center justify-center">
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-          {item?.displayName || 'No Name'}
+          {item?.displayName || 'User'}
         </h5>
         <span className="text-sm text-gray-300 ">{item?.email}</span>
         <span className="text-sm text-gray-300 ">{item?.phoneNumber}</span>
