@@ -1,10 +1,10 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Admin, Home, Login, Signup, Profile } from "./Pages";
+import { Admin, Home, Login, Profile, Signup } from "./Pages";
 import { Cart, Footer, Header } from "./components";
 import { Route, Routes } from "react-router-dom";
-import { calculateCartTotal, fetchFoodData, fetchUserCartData, isAdmin, dispatchUsers } from "./utils/functions";
+import { calculateCartTotal, dispatchUsers, fetchFoodData, fetchUserCartData, isAdmin } from "./utils/functions";
 
 import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
@@ -19,7 +19,7 @@ function App() {
     fetchFoodData(dispatch);
     dispatchUsers(dispatch);
     user && fetchUserCartData(user, dispatch);
-  });
+  }, []);
 
   useEffect(() => {
     foodItems && cartItems.length > 0 && calculateCartTotal(cartItems, foodItems, dispatch) 
