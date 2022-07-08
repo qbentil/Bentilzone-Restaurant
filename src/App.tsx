@@ -1,4 +1,3 @@
-import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Admin, Home, Login, Profile, Signup } from "./Pages";
@@ -19,7 +18,7 @@ function App() {
     fetchFoodData(dispatch);
     dispatchUsers(dispatch);
     user && fetchUserCartData(user, dispatch);
-  }, []);
+  },[]);
 
   useEffect(() => {
     foodItems && cartItems.length > 0 && calculateCartTotal(cartItems, foodItems, dispatch) 
