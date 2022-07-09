@@ -9,13 +9,17 @@ const Menu = () => {
     const [query, setQuery] = useState("");
     const [filteredFoodItems, setFilteredFoodItems] = useState<FoodItem[]>(foodItems);
     
-    const filterFood = (e:React.ChangeEvent<HTMLInputElement>) => {
-        if(e.target.value === "") {
+    const filterFood = () => {
+        if(query.length === 0) {
             setFilteredFoodItems(foodItems);
         }else{
-          const filteredFoodItems = foodItems.filter((foodItem:FoodItem) => foodItem.title.toLowerCase().includes(e.target.value.toLowerCase()));
+          const filteredFoodItems = foodItems.filter((foodItem:FoodItem) => foodItem.title.toLowerCase().includes(query.toLowerCase()));
           setFilteredFoodItems(filteredFoodItems);
         }
+    }
+    const searchFood = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setQuery(e.target.value);
+        filterFood();
     }
   return (
     <div className="w-full flex flex-col justify-center">
@@ -26,7 +30,7 @@ const Menu = () => {
           type="text"
           placeholder="Search food"
           value={query}
-          onChange={(e) => filterFood(e)}
+          onChange={(e) => searchFood(e)}
         />
         {/* search button */}
         <button className="flex items-center justify-center gap-3 text-orange-700 font-bold py-2 px-4 rounded-lg">
