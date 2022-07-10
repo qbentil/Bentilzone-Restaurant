@@ -13,7 +13,7 @@ const Users = () => {
       if(query.length === 0) {
         setFilteredUsers(users);
       }else{
-        const filter = users.filter((user:any) => user.displayName.toLowerCase().includes(query.toLowerCase()));
+        const filter = users.filter((item:any) => item.displayName.toLowerCase().includes(query.toLowerCase()));
         setFilteredUsers(filter);
       }
   }
