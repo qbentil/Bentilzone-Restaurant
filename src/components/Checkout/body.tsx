@@ -5,8 +5,10 @@ import MomoForm from "./forms/Momo";
 import Selector from "./Selector";
 import { useState } from "react";
 import {motion} from 'framer-motion'
+import { useStateValue } from '../../context/StateProvider';
 
 const Body = () => {
+  const [{cartTotal}] = useStateValue();
   const [paymentMethod, setPaymentMethod] = useState("momo");
   return (
     <div className="w-full h-full rounded-t-[2rem]  bg-cartBg flex flex-col">
@@ -21,7 +23,7 @@ const Body = () => {
             paymentMethod === "momo" ? <MomoForm /> : <CardForm />
         }
         <div className = 'w-full flex items-center justify-center my-2'>
-          <p className='text-gray-300'>Amount Due: <span className='font-bold text-white'>{'₵51.75'}</span> </p>
+          <p className='text-gray-300'>Amount Due: <span className='font-bold text-white'>{`GH₵${cartTotal}`}</span> </p>
         </div>
         {/* pay now button */}
 
