@@ -2,7 +2,7 @@ import CartItem from './Item'
 import CartTotal from './CartTotal'
 import { useStateValue } from '../../context/StateProvider';
 
-const CartBody = () => {
+const CartBody = ({action}:{action:any}) => {
   const [{cartItems}] = useStateValue();
   return (
     <div className='w-full h-full rounded-t-[2rem]  bg-cartBg flex flex-col'>
@@ -13,7 +13,7 @@ const CartBody = () => {
           } )
         }
         </div>
-        <CartTotal />
+        <CartTotal checkoutState={action} />
     </div>
   )
 }
