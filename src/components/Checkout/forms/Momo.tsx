@@ -8,14 +8,14 @@ const MomoForm = () => {
         htmlFor="network"
         className="font-bold text-sm mb-1 text-gray-100"
       >
-        Select Network
+        Select Provider
       </label>
       <select
         id="network"
         className="w-full px-3 py-2 mb-1 border-2 text-white border-gray-500 rounded-md focus:outline-none focus:border-orange-500 focus:text-orange-500 bg-cartItem transition-colors"
       >
         <option value="default" selected disabled>Select Network</option>
-        <option value="mtn">MTN Mobile Money</option>
+        <option value="MTN">MTN Mobile Money</option>
         <option value="airtel">Airtel Tigo Money</option>
         <option value="vodafone">Vodafone Cash</option>
 
