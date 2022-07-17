@@ -7,6 +7,7 @@ export const actionTypes = {
     SET_ADMIN_MODE: 'SET_ADMIN_MODE',
     SET_USERS: 'SET_USERS',
     UPDATE_USER: 'UPDATE_USER',
+    SET_PAYMENT_METHOD: 'SET_PAYMENT_METHOD'
 }
 
 const reducer = (state, action) => {
@@ -51,6 +52,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.user
+            }
+        case actionTypes.SET_PAYMENT_METHOD:
+            return {
+                ...state,
+                paymentMethod: action.paymentMethod
             }
             default:
                 return state;
