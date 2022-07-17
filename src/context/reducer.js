@@ -7,6 +7,8 @@ export const actionTypes = {
     SET_ADMIN_MODE: 'SET_ADMIN_MODE',
     SET_USERS: 'SET_USERS',
     UPDATE_USER: 'UPDATE_USER',
+    SET_PAYMENT_METHOD: 'SET_PAYMENT_METHOD',
+    UPDATE_CHECKOUT_DATA: 'UPDATE_CHECKOUT_DATA'
 }
 
 const reducer = (state, action) => {
@@ -51,9 +53,19 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.user
+            };
+        case actionTypes.SET_PAYMENT_METHOD:
+            return {
+                ...state,
+                paymentMethod: action.paymentMethod
+            };
+        case actionTypes.UPDATE_CHECKOUT_DATA:
+            return {
+                ...state,
+                checkoutData: action.checkoutData
             }
-            default:
-                return state;
+        default:
+            return state;
     }
 }
 
