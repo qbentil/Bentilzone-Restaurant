@@ -14,13 +14,19 @@ const MobileNav = ({
   isOpen: boolean;
   setIsOpen: any;
 }) => {
-  const [{ showCart, cartItems }, dispatch] = useStateValue();
+  const [{ showContactForm, showCart, cartItems }, dispatch] = useStateValue();
   const handleToggleCart = () => {
     dispatch({
       type: "TOGGLE_CART",
       showCart: !showCart,
     });
   };
+  const handleToggleContact = () => {
+    dispatch({
+      type: "TOGGLE_CONTACT_FORM",
+      showContactForm: !showContactForm,
+    });
+  }
   return (
     <div className="flex flex-col bg-cardOverlay backdrop-blur-sm items-start justify-start gap-16 w-screen h-screen  overflow-y-hidden  z-50 overflow-hidden ">
       <motion.div className="flex items-center justify-between w-screen h-24  px-10">
@@ -56,16 +62,16 @@ const MobileNav = ({
       <div
         className={`flex items-center justify-center w-full  h-72 gap-10 flex-col`}
       >
-        <p className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
+        <Link onClick={() => setIsOpen(!isOpen)} to={'/menu'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
           Menu
-        </p>
-        <p className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
+        </Link>
+        <Link onClick={() => setIsOpen(!isOpen)} to={'services'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
           Services
-        </p>
-        <p className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
+        </Link>
+        <Link onClick={() => setIsOpen(!isOpen)} to={'/about'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
           About
-        </p>
-        <p className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
+        </Link>
+        <p onClick={handleToggleContact} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
           Contact
         </p>
       </div>
