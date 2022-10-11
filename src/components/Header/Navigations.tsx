@@ -5,13 +5,19 @@ import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
 
 const Navigations = ({ direction }: { direction?: string }) => {
-  const [{ showCart, cartItems }, dispatch] = useStateValue();
+  const [{ showContactForm, cartItems }, dispatch] = useStateValue();
   const handleToggleCart = () => {
     dispatch({
       type: "TOGGLE_CART",
       showCart: true,
     });
   };
+  const handleToggleContact = () => {
+    dispatch({
+      type: "TOGGLE_CONTACT_FORM",
+      showContactForm: !showContactForm,
+    });
+  }
   return (
     <div className="flex items-center gap-8">
       <motion.ul
@@ -47,8 +53,9 @@ const Navigations = ({ direction }: { direction?: string }) => {
         <motion.li
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
+          onClick={handleToggleContact}
         >
-          <Link to={'/contact'}>Contact us</Link>
+          Contact us
         </motion.li>
       </motion.ul>
 
