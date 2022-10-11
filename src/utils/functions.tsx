@@ -6,11 +6,11 @@ import {
   firebaseEmptyUserCart,
   firebaseFetchAllCartItems,
   firebaseFetchFoodItems,
+  firebaseGetAllUsers,
   firebaseGetUser,
   firebaseLogout,
   firebaseUpdateCartItem,
   firebaseUpdateUser,
-  firebaseGetAllUsers,
 } from "../Firebase";
 
 import { MdShoppingBasket } from "react-icons/md";
@@ -216,6 +216,14 @@ export const hideCart = (dispatch: any) => {
   dispatch({
     type: "TOGGLE_CART",
     showCart: !true,
+  });
+};
+
+// Hide Cart
+export const hideContactform = (dispatch: any) => {
+  dispatch({
+    type: "TOGGLE_CONTACT_FORM",
+    showContactForm: !true,
   });
 };
 
