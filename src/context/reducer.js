@@ -8,7 +8,8 @@ export const actionTypes = {
     SET_USERS: 'SET_USERS',
     UPDATE_USER: 'UPDATE_USER',
     SET_PAYMENT_METHOD: 'SET_PAYMENT_METHOD',
-    UPDATE_CHECKOUT_DATA: 'UPDATE_CHECKOUT_DATA'
+    UPDATE_CHECKOUT_DATA: 'UPDATE_CHECKOUT_DATA',
+    TOGGLE_CONTACT_FORM: 'TOGGLE_CONTACT_FORM'
 }
 
 const reducer = (state, action) => {
@@ -63,7 +64,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 checkoutData: action.checkoutData
-            }
+            };
+        case actionTypes.TOGGLE_CONTACT_FORM:
+            return {
+                ...state,
+                showContactForm: action.showContactForm
+            };
         default:
             return state;
     }

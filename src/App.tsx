@@ -3,7 +3,6 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   About,
   Admin,
-  Contact,
   Home,
   Login,
   Menu,
@@ -22,12 +21,13 @@ import {
 } from "./utils/functions";
 
 import { AnimatePresence } from "framer-motion";
+import Contact from "./components/Contact";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { useStateValue } from "./context/StateProvider";
 
 function App() {
-  const [{ showCart, user, foodItems, cartItems, adminMode }, dispatch] =
+  const [{ showCart,showContactForm, user, foodItems, cartItems, adminMode }, dispatch] =
     useStateValue();
 
   useEffect(() => {
@@ -46,6 +46,7 @@ function App() {
       <ToastContainer />
       <div className="w-screen h-auto min-h-[100vh] flex flex-col bg-primary">
         {showCart && <Cart />}
+        {showContactForm && <Contact />}
         {!(adminMode && isAdmin(user)) && <Header />}
         <main
           className={`${
@@ -64,7 +65,6 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
           </Routes>
 
           {!(adminMode && isAdmin(user)) && <Footer />}

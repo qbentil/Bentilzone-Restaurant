@@ -6,6 +6,7 @@ export const initialState = {
     user: sessionUser,
     foodItems: null,
     showCart: false,
+    showContactForm: false,
     cartItems: [],
     cartTotal: 0,
     adminMode: sessionUserMode,
