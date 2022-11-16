@@ -10,7 +10,7 @@ const Checkout = ({handler}: {handler: any}) => {
       className="w-full h-screen md:w-[350px] bg-white md:backdrop-blur-sm flex flex-col z-[101] drop-shadow-xl fixed top-0 right-0"
     >
         <Header action={handler} />
-        <Body />
+        <Body action={handler} />
     </motion.div>
   );
 };
