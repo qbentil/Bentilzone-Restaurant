@@ -1,15 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Logo } from "../Assets";
 import {
+  BsDribbble,
+  BsFacebook,
   BsGithub,
+  BsInstagram,
   BsLinkedin,
   BsTwitter,
-  BsInstagram,
-  BsFacebook,
-  BsDribbble,
 } from "react-icons/bs";
+
+import { Link } from "react-router-dom";
+import { Logo } from "../Assets";
+import React from "react";
 import { motion } from "framer-motion";
+
 const Footer = () => {
   return (
     <footer className="p-4 bg-primary sm:p-6 w-full">
@@ -31,7 +33,11 @@ const Footer = () => {
       <hr className="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div className="flex flex-col items-center justify-center md:flex-row md:justify-between">
         <span className="text-sm text-gray-500 text-center dark:text-gray-400">
-          © 2022 Bentilzone™. All Rights Reserved.
+          © {" "}
+            {
+              new Date().getFullYear()
+            }    
+           {" "}Bentilzone™. All Rights Reserved.
         </span>
         <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0 md:text-xl">
           <motion.a
