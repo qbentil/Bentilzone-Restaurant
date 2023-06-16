@@ -11,6 +11,7 @@ export const initialState = {
     cartTotal: 0,
     adminMode: sessionUserMode,
     users: [],
+    orders: [],
     paymentMethod: 'mobile_money',
     checkoutData: {},
 }
